@@ -281,6 +281,7 @@
 		9AD147C017A63FED00197937 /* libwebsockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD147BF17A63FED00197937 /* libwebsockets.a */; };
 		9AD147C617A63FED00197937 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AD147C517A63FED00197937 /* AppDelegate.cpp */; };
 		9AD147C917A63FED00197937 /* HelloWorldScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AD147C817A63FED00197937 /* HelloWorldScene.cpp */; };
+		9AD147D417A6472400197937 /* MEPoint.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9AD147D317A6472400197937 /* MEPoint.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -876,6 +877,8 @@
 		9AD147C517A63FED00197937 /* AppDelegate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = AppDelegate.cpp; path = Classes/AppDelegate.cpp; sourceTree = "<group>"; };
 		9AD147C717A63FED00197937 /* HelloWorldScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HelloWorldScene.h; path = Classes/HelloWorldScene.h; sourceTree = "<group>"; };
 		9AD147C817A63FED00197937 /* HelloWorldScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = HelloWorldScene.cpp; path = Classes/HelloWorldScene.cpp; sourceTree = "<group>"; };
+		9AD147D217A6472400197937 /* MEPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MEPoint.h; path = Classes/MEPoint.h; sourceTree = "<group>"; };
+		9AD147D317A6472400197937 /* MEPoint.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MEPoint.mm; path = Classes/MEPoint.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2102,6 +2105,8 @@
 				9AD147C517A63FED00197937 /* AppDelegate.cpp */,
 				9AD147C717A63FED00197937 /* HelloWorldScene.h */,
 				9AD147C817A63FED00197937 /* HelloWorldScene.cpp */,
+				9AD147D217A6472400197937 /* MEPoint.h */,
+				9AD147D317A6472400197937 /* MEPoint.mm */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
