@@ -5,20 +5,24 @@
 //  Created by Yu on 7/29/13.
 //
 //
-
+#ifndef MAPEDITOR_MEPOINT
+#define MAPEDITOR_MEPOINT
 #import <Foundation/Foundation.h>
+#import "cocos2d.h"
 
-@interface MEPoint : NSObject
+@interface MEPoint : NSObject 
 {
     int ID;
-    CGPoint point;
+    cocos2d::CCPoint point;
     NSString *fileLocation;
     int direction;
     int userGroup;
 }
 @property(nonatomic)int ID;
-@property(nonatomic)CGPoint point;
+@property(nonatomic)cocos2d::CCPoint point;
 @property(nonatomic,copy)NSString *fileLocation;
 @property(nonatomic)int direction;
 @property(nonatomic)int userGroup;
 @end
+
+#endif

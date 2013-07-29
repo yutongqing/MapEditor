@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		065D21D417A6B8660013B2F0 /* MERoute.mm in Sources */ = {isa = PBXBuildFile; fileRef = 065D21D317A6B8660013B2F0 /* MERoute.mm */; };
 		065D21DC17A6BF830013B2F0 /* MESprite.mm in Sources */ = {isa = PBXBuildFile; fileRef = 065D21DB17A6BF830013B2F0 /* MESprite.mm */; };
+		9A5EAEB117A6968B00BD09C0 /* backgroundPic in Resources */ = {isa = PBXBuildFile; fileRef = 9A5EAEB017A6968B00BD09C0 /* backgroundPic */; };
+		9A8C350D17A66EE000901E99 /* MEPoint.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9AD147D317A6472400197937 /* MEPoint.mm */; };
+		9A8C350E17A66F2C00901E99 /* MELayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9AD134E217A665CA009FB326 /* MELayer.mm */; };
 		9AD1442317A63FE700197937 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD1442217A63FE700197937 /* QuartzCore.framework */; };
 		9AD1442517A63FE700197937 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD1442417A63FE700197937 /* OpenGLES.framework */; };
 		9AD1442717A63FE700197937 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD1442617A63FE700197937 /* OpenAL.framework */; };
@@ -289,6 +292,9 @@
 		065D21D317A6B8660013B2F0 /* MERoute.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MERoute.mm; path = Classes/MERoute.mm; sourceTree = "<group>"; };
 		065D21DA17A6BF830013B2F0 /* MESprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MESprite.h; path = Classes/MESprite.h; sourceTree = "<group>"; };
 		065D21DB17A6BF830013B2F0 /* MESprite.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MESprite.mm; path = Classes/MESprite.mm; sourceTree = "<group>"; };
+		9A5EAEB017A6968B00BD09C0 /* backgroundPic */ = {isa = PBXFileReference; lastKnownFileType = folder; name = backgroundPic; path = MapEditor/backgroundPic; sourceTree = "<group>"; };
+		9AD134E217A665CA009FB326 /* MELayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MELayer.mm; path = Classes/MELayer.mm; sourceTree = "<group>"; };
+		9AD134E317A665CB009FB326 /* MELayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MELayer.h; path = Classes/MELayer.h; sourceTree = "<group>"; };
 		9AD1441F17A63FE700197937 /* MapEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AD1442217A63FE700197937 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9AD1442417A63FE700197937 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -908,6 +914,7 @@
 		9AD1441617A63FE700197937 = {
 			isa = PBXGroup;
 			children = (
+				9A5EAEB017A6968B00BD09C0 /* backgroundPic */,
 				9AD1443217A63FE700197937 /* MapEditor */,
 				9AD1442117A63FE700197937 /* Frameworks */,
 				9AD1442017A63FE700197937 /* Products */,
@@ -2111,6 +2118,8 @@
 				9AD147C817A63FED00197937 /* HelloWorldScene.cpp */,
 				9AD147D217A6472400197937 /* MEPoint.h */,
 				9AD147D317A6472400197937 /* MEPoint.mm */,
+				9AD134E317A665CB009FB326 /* MELayer.h */,
+				9AD134E217A665CA009FB326 /* MELayer.mm */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -2165,6 +2174,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A5EAEB117A6968B00BD09C0 /* backgroundPic in Resources */,
 				9AD1443517A63FE700197937 /* CloseNormal.png in Resources */,
 				9AD1443717A63FE700197937 /* CloseSelected.png in Resources */,
 				9AD1443917A63FE700197937 /* Default.png in Resources */,
@@ -2188,6 +2198,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A8C350E17A66F2C00901E99 /* MELayer.mm in Sources */,
+				9A8C350D17A66EE000901E99 /* MEPoint.mm in Sources */,
 				9AD1444E17A63FE700197937 /* AppController.mm in Sources */,
 				9AD1445117A63FE700197937 /* RootViewController.mm in Sources */,
 				9AD1445317A63FE700197937 /* main.m in Sources */,
