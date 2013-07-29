@@ -10,11 +10,11 @@
 
 @interface MERoute : NSObject
 {
-    int ID;
-    int head;
-    int tail;
+    int ID; //路径ID
+    int head;   //路径头
+    int tail;   //路径尾
     
-    NSMutableArray *points;
+    NSMutableArray *points; //路径中包含的点集
 }
 
 @property(nonatomic) int ID;

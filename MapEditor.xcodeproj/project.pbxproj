@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		065D21D417A6B8660013B2F0 /* MERoute.mm in Sources */ = {isa = PBXBuildFile; fileRef = 065D21D317A6B8660013B2F0 /* MERoute.mm */; };
+		065D21DC17A6BF830013B2F0 /* MESprite.mm in Sources */ = {isa = PBXBuildFile; fileRef = 065D21DB17A6BF830013B2F0 /* MESprite.mm */; };
 		9AD1442317A63FE700197937 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD1442217A63FE700197937 /* QuartzCore.framework */; };
 		9AD1442517A63FE700197937 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD1442417A63FE700197937 /* OpenGLES.framework */; };
 		9AD1442717A63FE700197937 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD1442617A63FE700197937 /* OpenAL.framework */; };
@@ -281,12 +282,13 @@
 		9AD147C017A63FED00197937 /* libwebsockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD147BF17A63FED00197937 /* libwebsockets.a */; };
 		9AD147C617A63FED00197937 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AD147C517A63FED00197937 /* AppDelegate.cpp */; };
 		9AD147C917A63FED00197937 /* HelloWorldScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AD147C817A63FED00197937 /* HelloWorldScene.cpp */; };
-		9AD147D417A6472400197937 /* MEPoint.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9AD147D317A6472400197937 /* MEPoint.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		065D21D217A6B8660013B2F0 /* MERoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MERoute.h; path = Classes/MERoute.h; sourceTree = "<group>"; };
 		065D21D317A6B8660013B2F0 /* MERoute.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MERoute.mm; path = Classes/MERoute.mm; sourceTree = "<group>"; };
+		065D21DA17A6BF830013B2F0 /* MESprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MESprite.h; path = Classes/MESprite.h; sourceTree = "<group>"; };
+		065D21DB17A6BF830013B2F0 /* MESprite.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MESprite.mm; path = Classes/MESprite.mm; sourceTree = "<group>"; };
 		9AD1441F17A63FE700197937 /* MapEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AD1442217A63FE700197937 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9AD1442417A63FE700197937 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -2099,6 +2101,8 @@
 		9AD147C317A63FED00197937 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				065D21DA17A6BF830013B2F0 /* MESprite.h */,
+				065D21DB17A6BF830013B2F0 /* MESprite.mm */,
 				065D21D217A6B8660013B2F0 /* MERoute.h */,
 				065D21D317A6B8660013B2F0 /* MERoute.mm */,
 				9AD147C417A63FED00197937 /* AppDelegate.h */,
@@ -2434,6 +2438,7 @@
 				9AD147C617A63FED00197937 /* AppDelegate.cpp in Sources */,
 				9AD147C917A63FED00197937 /* HelloWorldScene.cpp in Sources */,
 				065D21D417A6B8660013B2F0 /* MERoute.mm in Sources */,
+				065D21DC17A6BF830013B2F0 /* MESprite.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
