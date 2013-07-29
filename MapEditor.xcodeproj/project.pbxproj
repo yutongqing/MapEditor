@@ -280,6 +280,7 @@
 		9AD147C017A63FED00197937 /* libwebsockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD147BF17A63FED00197937 /* libwebsockets.a */; };
 		9AD147C617A63FED00197937 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AD147C517A63FED00197937 /* AppDelegate.cpp */; };
 		9AD147C917A63FED00197937 /* HelloWorldScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AD147C817A63FED00197937 /* HelloWorldScene.cpp */; };
+		9AD147D417A6472400197937 /* MEPoint.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9AD147D317A6472400197937 /* MEPoint.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -873,6 +874,8 @@
 		9AD147C517A63FED00197937 /* AppDelegate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = AppDelegate.cpp; path = Classes/AppDelegate.cpp; sourceTree = "<group>"; };
 		9AD147C717A63FED00197937 /* HelloWorldScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HelloWorldScene.h; path = Classes/HelloWorldScene.h; sourceTree = "<group>"; };
 		9AD147C817A63FED00197937 /* HelloWorldScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = HelloWorldScene.cpp; path = Classes/HelloWorldScene.cpp; sourceTree = "<group>"; };
+		9AD147D217A6472400197937 /* MEPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MEPoint.h; path = Classes/MEPoint.h; sourceTree = "<group>"; };
+		9AD147D317A6472400197937 /* MEPoint.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MEPoint.mm; path = Classes/MEPoint.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -880,6 +883,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AD1443117A63FE700197937 /* CoreGraphics.framework in Frameworks */,
 				9AD1442317A63FE700197937 /* QuartzCore.framework in Frameworks */,
 				9AD1442517A63FE700197937 /* OpenGLES.framework in Frameworks */,
 				9AD1442717A63FE700197937 /* OpenAL.framework in Frameworks */,
@@ -887,7 +891,6 @@
 				9AD1442B17A63FE700197937 /* AVFoundation.framework in Frameworks */,
 				9AD1442D17A63FE700197937 /* UIKit.framework in Frameworks */,
 				9AD1442F17A63FE700197937 /* Foundation.framework in Frameworks */,
-				9AD1443117A63FE700197937 /* CoreGraphics.framework in Frameworks */,
 				9AD1459817A63FEA00197937 /* libcurl.a in Frameworks */,
 				9AD1459A17A63FEA00197937 /* libwebp.a in Frameworks */,
 				9AD147C017A63FED00197937 /* libwebsockets.a in Frameworks */,
@@ -2097,6 +2100,8 @@
 				9AD147C517A63FED00197937 /* AppDelegate.cpp */,
 				9AD147C717A63FED00197937 /* HelloWorldScene.h */,
 				9AD147C817A63FED00197937 /* HelloWorldScene.cpp */,
+				9AD147D217A6472400197937 /* MEPoint.h */,
+				9AD147D317A6472400197937 /* MEPoint.mm */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -2423,6 +2428,7 @@
 				9AD147B817A63FED00197937 /* cpVect.c in Sources */,
 				9AD147C617A63FED00197937 /* AppDelegate.cpp in Sources */,
 				9AD147C917A63FED00197937 /* HelloWorldScene.cpp in Sources */,
+				9AD147D417A6472400197937 /* MEPoint.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
