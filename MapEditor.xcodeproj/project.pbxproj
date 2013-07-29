@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		065D21D417A6B8660013B2F0 /* MERoute.mm in Sources */ = {isa = PBXBuildFile; fileRef = 065D21D317A6B8660013B2F0 /* MERoute.mm */; };
 		9AD1442317A63FE700197937 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD1442217A63FE700197937 /* QuartzCore.framework */; };
 		9AD1442517A63FE700197937 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD1442417A63FE700197937 /* OpenGLES.framework */; };
 		9AD1442717A63FE700197937 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD1442617A63FE700197937 /* OpenAL.framework */; };
@@ -283,6 +284,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		065D21D217A6B8660013B2F0 /* MERoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MERoute.h; path = Classes/MERoute.h; sourceTree = "<group>"; };
+		065D21D317A6B8660013B2F0 /* MERoute.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MERoute.mm; path = Classes/MERoute.mm; sourceTree = "<group>"; };
 		9AD1441F17A63FE700197937 /* MapEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AD1442217A63FE700197937 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9AD1442417A63FE700197937 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -880,6 +883,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AD1443117A63FE700197937 /* CoreGraphics.framework in Frameworks */,
 				9AD1442317A63FE700197937 /* QuartzCore.framework in Frameworks */,
 				9AD1442517A63FE700197937 /* OpenGLES.framework in Frameworks */,
 				9AD1442717A63FE700197937 /* OpenAL.framework in Frameworks */,
@@ -887,7 +891,6 @@
 				9AD1442B17A63FE700197937 /* AVFoundation.framework in Frameworks */,
 				9AD1442D17A63FE700197937 /* UIKit.framework in Frameworks */,
 				9AD1442F17A63FE700197937 /* Foundation.framework in Frameworks */,
-				9AD1443117A63FE700197937 /* CoreGraphics.framework in Frameworks */,
 				9AD1459817A63FEA00197937 /* libcurl.a in Frameworks */,
 				9AD1459A17A63FEA00197937 /* libwebp.a in Frameworks */,
 				9AD147C017A63FED00197937 /* libwebsockets.a in Frameworks */,
@@ -2093,6 +2096,8 @@
 		9AD147C317A63FED00197937 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				065D21D217A6B8660013B2F0 /* MERoute.h */,
+				065D21D317A6B8660013B2F0 /* MERoute.mm */,
 				9AD147C417A63FED00197937 /* AppDelegate.h */,
 				9AD147C517A63FED00197937 /* AppDelegate.cpp */,
 				9AD147C717A63FED00197937 /* HelloWorldScene.h */,
@@ -2423,6 +2428,7 @@
 				9AD147B817A63FED00197937 /* cpVect.c in Sources */,
 				9AD147C617A63FED00197937 /* AppDelegate.cpp in Sources */,
 				9AD147C917A63FED00197937 /* HelloWorldScene.cpp in Sources */,
+				065D21D417A6B8660013B2F0 /* MERoute.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2501,6 +2507,7 @@
 				GCC_PREFIX_HEADER = MapEditor/Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = MapEditor/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/MapEditor/libs/cocos2dx/platform/third_party/ios/libraries\"",
@@ -2527,6 +2534,7 @@
 				GCC_PREFIX_HEADER = MapEditor/Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = MapEditor/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/MapEditor/libs/cocos2dx/platform/third_party/ios/libraries\"",
@@ -2564,6 +2572,7 @@
 				9AD147CE17A63FED00197937 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
