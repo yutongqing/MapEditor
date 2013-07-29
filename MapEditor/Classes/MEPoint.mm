@@ -11,6 +11,7 @@
 @implementation MEPoint
 @synthesize ID;
 @synthesize point;
+@synthesize fileLocation;
 @synthesize direction;
 @synthesize userGroup;
 @end

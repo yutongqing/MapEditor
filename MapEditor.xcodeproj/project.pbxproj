@@ -2570,6 +2570,7 @@
 				9AD147CE17A63FED00197937 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
