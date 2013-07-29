@@ -18,7 +18,7 @@
 }
 @property(nonatomic)int ID;
 @property(nonatomic)CGPoint point;
-@property(nonatomic)NSString *fileLocation;
+@property(nonatomic,copy)NSString *fileLocation;
 @property(nonatomic)int direction;
 @property(nonatomic)int userGroup;
 @end
