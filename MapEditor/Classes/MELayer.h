@@ -11,6 +11,8 @@
 
 #import "cocos2d.h"
 
+using namespace cocos2d;
+
 class MELayer : public cocos2d::CCLayer
 {
 private:
@@ -24,6 +26,21 @@ public:
     static cocos2d::CCScene* scene();
     CREATE_FUNC(MELayer);
     void chooseBg(CCObject* pSender);
+    
+    virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
+    virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
+    virtual void registerWithTouchDispatcher();
+    
+    void createRoute();
+    void finishRoute();
+    
+    void createPlayerPut();
+    void createSystemPut();
+    void createSceneObj();
+    
+    virtual void draw();
+    
+    
 };
 
 #endif /* defined(__MapEditor__MELayer__) */
