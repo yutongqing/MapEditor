@@ -57,11 +57,11 @@ bool MELayer::init()
     
     CCMenuItem *menuItem1 = CCMenuItemFont::create("新建路线", this, menu_selector(MELayer::createRoute));
     menuItem1->setPosition(winSize.width / 5 * 1, winSize.height / 8);
-    CCMenuItem *menuItem2 = CCMenuItemFont::create("用户放置点");
+    CCMenuItem *menuItem2 = CCMenuItemFont::create("玩家放置点", this, menu_selector(MELayer::createPlayerPut));
     menuItem2->setPosition(winSize.width / 5 * 2, winSize.height / 8);
-    CCMenuItem *menuItem3 = CCMenuItemFont::create("中立点");
+    CCMenuItem *menuItem3 = CCMenuItemFont::create("中立点", this, menu_selector(MELayer::createSystemPut));
     menuItem3->setPosition(winSize.width / 5 * 3, winSize.height / 8);
-    CCMenuItem *menuItem4 = CCMenuItemFont::create("图素");
+    CCMenuItem *menuItem4 = CCMenuItemFont::create("图素", this, menu_selector(MELayer::createSceneObj));
     menuItem4->setPosition(winSize.width / 5 * 4, winSize.height / 8);
     
     CCMenu *menu = CCMenu::create(menuItem1, menuItem2, menuItem3, menuItem4, NULL);
@@ -245,16 +245,16 @@ void MELayer::draw()
 
 void MELayer::createPlayerPut()
 {
-    
+    NSLog(@"玩家放置点 menuItem is clicked...");
 }
 
 void MELayer::createSystemPut()
 {
-    
+    NSLog(@"中立点 menuItem is clicked...");
 }
 
 void MELayer::createSceneObj()
 {
-    
+    NSLog(@"图素 menuItem is clicked...");
 }
 
