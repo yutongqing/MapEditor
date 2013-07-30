@@ -22,7 +22,10 @@ private:
     //NSMutableArray *playerPuts;
     //NSMutableArray *playerPutSprites;
 public:
+    
+    CCSprite *bgSprite;    
     virtual bool init();
+    void initMainScene();
     static cocos2d::CCScene* scene();
     CREATE_FUNC(MELayer);
     void chooseBg(CCObject* pSender);

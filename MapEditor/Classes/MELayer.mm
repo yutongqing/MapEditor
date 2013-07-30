@@ -9,6 +9,9 @@
 #include "MELayer.h"
 #include "MEPoint.h"
 #include "MERoute.h"
+#include "MESprite.h"
+#include "MEPopLayer.h"
+
 using namespace cocos2d;
 
 MEPoint *homeA;
@@ -47,6 +50,18 @@ bool MELayer::init()
     
     this->setTouchEnabled(true);
     
+    CCSize size = CCDirector::sharedDirector()->getWinSize();
+    CCMenuItem *menuItme = CCMenuItemFont::create("请选择背景图片", this, menu_selector(MELayer::chooseBg));
+    menuItme->setPosition(ccp(size.width/2,size.height/2));
+    CCMenu* Menu = CCMenu::create(menuItme, NULL);
+    Menu->setPosition(CCPointZero);
+    this->addChild(Menu, 1);
+    
+    return true;
+}
+
+void MELayer::initMainScene()
+{
     pointsInRoute0 = [[NSMutableArray alloc] init];
     pointsInRoute1 = [[NSMutableArray alloc] init];
     pointsInRoute2 = [[NSMutableArray alloc] init];
@@ -68,8 +83,6 @@ bool MELayer::init()
     menu->setPosition(CCPointZero);
     
     this->addChild(menu, 1);
-    
-    return true;
 }
 
 CCScene* MELayer::scene()
@@ -82,22 +95,9 @@ CCScene* MELayer::scene()
 
 void MELayer::chooseBg(CCObject* pSender)
 {
-    NSString *picPath =  [[NSBundle mainBundle]pathForResource:@"123" ofType:@"png" inDirectory:@"backgroundPic"];
-    UIImage *image = [[UIImage alloc]initWithContentsOfFile:picPath];
-    CCSprite    *sprite = CCSprite::create();
-    NSData* imgData = UIImagePNGRepresentation(image);
-    CCImage *cimg = new CCImage();
-    void* data = malloc([imgData length]);
-    [imgData getBytes:data];
-    cimg->initWithImageData(data, [imgData length], CCImage::kFmtPng, image.size.width, image.size.height);
-    free(data);
-    
-    
-    CCTexture2D *texture = new CCTexture2D();
-    texture->initWithImage(cimg);
-    sprite->initWithTexture(texture);
-    
-    this->addChild(sprite);
+    MEPopLayer *popLayer = MEPopLayer::create();
+    this->removeAllChildren();
+    this->getParent()->addChild(popLayer,1,11);
 }
 
 void MELayer::createRoute()
@@ -160,7 +160,7 @@ void MELayer::finishRoute()
 }
 
 bool MELayer::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
-{
+{    
     return true;
 }
 
@@ -212,7 +212,10 @@ void MELayer::ccTouchEnded(CCTouch *touch, CCEvent *pEvent)
 }
 
 void MELayer::draw()
-{
+{    
+    glLineWidth( 5.0f );
+    ccDrawColor4B(0,255,0,255);
+    
     int count0 = [pointsInRoute0 count];
     int count1 = [pointsInRoute1 count];
     int count2 = [pointsInRoute2 count];
@@ -241,6 +244,9 @@ void MELayer::draw()
             ccDrawLine(point1, point2);
         }
     }
+    
+    //检测是否有OpenGL错误发生，如果有则打印错误
+    CHECK_GL_ERROR_DEBUG();
 }
 
 void MELayer::createPlayerPut()

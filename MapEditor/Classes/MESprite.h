@@ -13,9 +13,10 @@ using namespace cocos2d;
 
 class MESprite : public cocos2d::CCSprite
 {
+public:
+    
     CCLabelTTF *layer;
-    
-    
+    CREATE_FUNC(MESprite);    
     bool init();
 };
 
