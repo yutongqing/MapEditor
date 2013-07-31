@@ -10,27 +10,27 @@
 #define __MapEditor__MELayer__
 
 #import "cocos2d.h"
-
+#import "MESprite.h"
 using namespace cocos2d;
 
 class MELayer : public cocos2d::CCLayer
 {
 private:
-    //MEPoint *homeA;
-    //MEPoint *homeB;
-    //NSMutableArray *routes;
-    //NSMutableArray *playerPuts;
-    //NSMutableArray *playerPutSprites;
 public:
     
-    CCSprite *bgSprite;    
+    
+    
+    CCSprite *bgSprite;
+    
     virtual bool init();
     void initMainScene();
     static cocos2d::CCScene* scene();
     CREATE_FUNC(MELayer);
     void chooseBg(CCObject* pSender);
+    void chosenBuilding();
     
     virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
+    virtual void ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
     virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
     virtual void registerWithTouchDispatcher();
     

@@ -14,11 +14,18 @@
 
 using namespace cocos2d;
 
+CCLabelTTF *locationInfoLabel;
+
 MEPoint *homeA;
 MEPoint *homeB;
 NSMutableArray *routes;
 NSMutableArray *playerPuts;
-NSMutableArray *playerPutSprites;
+
+CCArray *playerPutSprites;
+CCSprite *selectedBuilding;
+BOOL canMoveBuilding = false;
+
+MEPopLayer* popLayer;
 
 CCMenu *finishMenu; //完成此路线
 
@@ -50,6 +57,7 @@ bool MELayer::init()
     
     this->setTouchEnabled(true);
     
+    playerPutSprites = new CCArray;
     CCSize size = CCDirector::sharedDirector()->getWinSize();
     CCMenuItem *menuItme = CCMenuItemFont::create("请选择背景图片", this, menu_selector(MELayer::chooseBg));
     menuItme->setPosition(ccp(size.width/2,size.height/2));
@@ -67,6 +75,10 @@ void MELayer::initMainScene()
     pointsInRoute2 = [[NSMutableArray alloc] init];
     
     routes = [[NSMutableArray alloc] initWithCapacity:3];
+    
+    locationInfoLabel = CCLabelTTF::create("", "Helcatica", 20);
+    locationInfoLabel->setVisible(false);
+    this->addChild(locationInfoLabel);
     
     CCSize winSize = CCDirector::sharedDirector()->getWinSize();
     
@@ -95,24 +107,32 @@ CCScene* MELayer::scene()
 
 void MELayer::chooseBg(CCObject* pSender)
 {
-    MEPopLayer *popLayer = MEPopLayer::create();
+    MEPopLayer *popLayer = new MEPopLayer(@"background");
     this->removeAllChildren();
     this->getParent()->addChild(popLayer,1,11);
 }
 
 void MELayer::createRoute()
 {
-    isCreateRoute = true;
+    if (numberOfRouteCreated >= 3) {
+        
+        isCreateRoute = false;
+    } else
+    {
+        isCreateRoute = true;
+        
+        NSLog(@"新建路线 menuItem is clicked...");
+        
+        CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+        CCMenuItem *menuItem = CCMenuItemFont::create("完成此路线", this, menu_selector(MELayer::finishRoute));
+        menuItem->setPosition(winSize.width - 100, winSize.height - 30);
+        finishMenu = CCMenu::create(menuItem, NULL);
+        finishMenu->setPosition(CCPointZero);
+        
+        this->addChild(finishMenu, 1);
+    }
     
-    NSLog(@"新建路线 menuItem is clicked...");
     
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
-    CCMenuItem *menuItem = CCMenuItemFont::create("完成此路线", this, menu_selector(MELayer::finishRoute));
-    menuItem->setPosition(winSize.width - 100, winSize.height - 30);
-    finishMenu = CCMenu::create(menuItem, NULL);
-    finishMenu->setPosition(CCPointZero);
-    
-    this->addChild(finishMenu, 1);
 }
 
 void MELayer::finishRoute()
@@ -143,29 +163,51 @@ void MELayer::finishRoute()
         default:
             break;
     }
-    
-    for (MERoute *route in routes) {
         
-        NSMutableArray *temp = [route points];
-        
-        for (MEPoint *point in temp) {
-            
-            NSLog(@"--->(%f, %f)", [point point].x, [point point].y);
-        }
-    }
-    
-    NSLog(@"numberOfRouteCreated--->%d", numberOfRouteCreated);
-    
-    
 }
 
 bool MELayer::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
-{    
+{
+    for (int i = 0; i < playerPutSprites->count(); i++) {
+    CCSprite *s = (CCSprite*)playerPutSprites->objectAtIndex(i);
+    if (pTouch->getLocation().x < s->getPosition().x + s->getContentSize().width/2
+        && pTouch->getLocation().x > s->getPosition().x - s->getContentSize().width/2
+        && pTouch->getLocation().y < s->getPosition().y + s->getContentSize().height/2
+        && pTouch->getLocation().y > s->getPosition().y - s->getContentSize().height/2) {
+        selectedBuilding = s;
+        canMoveBuilding = true;
+        }
+    }
     return true;
 }
 
+void MELayer::ccTouchMoved(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
+{
+    if (canMoveBuilding) {
+        selectedBuilding->setPosition(pTouch->getLocation());
+        }
+    if(isCreateRoute) {
+        
+        CCPoint p = pTouch->getLocation();
+        
+        char str[20];
+        int tempX = (int)p.x;
+        int tempY = (int)p.y;
+        std::sprintf(str, "(%d, %d)", tempX, tempY);
+        
+        locationInfoLabel->setString(str);
+        locationInfoLabel->setPosition(ccp(p.x, p.y + 50));
+        locationInfoLabel->setVisible(true);
+    }
+    
+    }
 void MELayer::ccTouchEnded(CCTouch *touch, CCEvent *pEvent)
-{    
+{
+    selectedBuilding = nil;
+    canMoveBuilding = false;
+    
+    locationInfoLabel->setVisible(false);
+    
     if (isCreateRoute) {
         
         CCPoint touchLocation = touch->getLocation();
@@ -177,6 +219,16 @@ void MELayer::ccTouchEnded(CCTouch *touch, CCEvent *pEvent)
         pointSprite->initWithFile("point.png");
         pointSprite->setPosition(touchLocation);
         this->addChild(pointSprite);
+        
+        CCLabelTTF *pointLabel = CCLabelTTF::create("", "Helcatica", 20);
+        char str[20];
+        int tempX = (int)touchLocation.x;
+        int tempY = (int)touchLocation.y;
+        std::sprintf(str, "(%d, %d)", tempX, tempY);
+        
+        pointLabel->setString(str);
+        pointLabel->setPosition(ccp(touchLocation.x, touchLocation.y + 50));
+        this->addChild(pointLabel);
         
         switch (numberOfRouteCreated) {
             case 0:
@@ -214,7 +266,7 @@ void MELayer::ccTouchEnded(CCTouch *touch, CCEvent *pEvent)
 void MELayer::draw()
 {    
     glLineWidth( 5.0f );
-    ccDrawColor4B(0,255,0,255);
+    ccDrawColor4B(0,255,255,255);
     
     int count0 = [pointsInRoute0 count];
     int count1 = [pointsInRoute1 count];
@@ -249,9 +301,23 @@ void MELayer::draw()
     CHECK_GL_ERROR_DEBUG();
 }
 
+void MELayer::chosenBuilding()
+{
+    MEPoint *point = [[MEPoint alloc] init];
+    point.point = popLayer->selectedSprite->getPosition();
+    point.fileLocation = popLayer->selectedFile;
+    CCSprite *sprite = popLayer->selectedSprite;
+    sprite->setPosition(ccp(100,100));
+    playerPutSprites->addObject(sprite);
+    this->addChild(sprite);
+}
+
 void MELayer::createPlayerPut()
 {
-    NSLog(@"玩家放置点 menuItem is clicked...");
+    MEPopLayer *layer = new MEPopLayer(@"buildings");
+    popLayer = layer;
+    this->getParent()->addChild(popLayer,1,11);
+
 }
 
 void MELayer::createSystemPut()

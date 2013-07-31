@@ -6,7 +6,6 @@
 //
 //
 
-#import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
 using namespace cocos2d;

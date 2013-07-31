@@ -10,24 +10,32 @@
 #include "MELayer.h"
 using namespace cocos2d;
 
+NSMutableArray *allFileName;
+
 bool MEPopLayer::init()
 {
     if (!CCLayer::init()) {
         return false;
     }
     this->setTouchEnabled(true);
-    selectIamge();
+    selectImage();
     return true;
 }
 
-void MEPopLayer::selectIamge()
+MEPopLayer::MEPopLayer(NSString *tag)
+{
+    this->tag = tag;
+    init();
+}
+
+void MEPopLayer::selectImage()
 {
     allSprites = SeachAttachFileInDocumentDirctory();
     selectedSprite = (CCSprite*)allSprites->objectAtIndex(selcetedId);
     this->addChild(selectedSprite,0,spriteTag);
     
     CCSize size = CCDirector::sharedDirector()->getWinSize();
-    CCMenuItem *menuItme = CCMenuItemFont::create("OK",this, menu_selector(MEPopLayer::chosenBg));
+    CCMenuItem *menuItme = CCMenuItemFont::create("OK",this, menu_selector(MEPopLayer::menuOK));
     menuItme->setPosition(ccp(size.width-50,size.height-50));
     CCMenu* Menu = CCMenu::create(menuItme, NULL);
     Menu->setPosition(CCPointZero);
@@ -38,16 +46,22 @@ CCArray* MEPopLayer::SeachAttachFileInDocumentDirctory()
 {
     
     CCArray *sprites =new CCArray;
+    allFileName = [[NSMutableArray alloc] init];
     NSFileManager *fm = [NSFileManager defaultManager];
     
     //获取Document目录
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *dir = [paths objectAtIndex:0];
+    dir = [[dir stringByAppendingString:@"/"] stringByAppendingString:tag];
     
     //遍历目录，并创建精灵数组
     NSDirectoryEnumerator *dirEnumerater = [fm enumeratorAtPath:dir];
     NSString *filePath = nil;
     while(nil != (filePath = [dirEnumerater nextObject])) {
+        if ([filePath isEqualToString:@".DS_Store"]) {
+            continue;
+        }
+        [allFileName addObject:filePath];
         filePath = [[dir stringByAppendingString:@"/"] stringByAppendingString:filePath];
         UIImage *image = [[UIImage alloc]initWithContentsOfFile:filePath];
         CCSprite    *sprite = CCSprite::create();
@@ -82,7 +96,7 @@ void MEPopLayer::ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent
     }else{
         selcetedId++;
     }
-    selcetedId = MAX(0, MIN(selcetedId, allSprites->count()-1));
+    selcetedId =MIN(allSprites->count()-1, MAX(selcetedId, 0));
     this->removeChildByTag(spriteTag);
     selectedSprite = (CCSprite*)allSprites->objectAtIndex(selcetedId);
     this->addChild(selectedSprite,0,spriteTag);
@@ -94,7 +108,7 @@ void MEPopLayer::registerWithTouchDispatcher(void)
     CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, kCCMenuHandlerPriority, true);
 }
 
-void MEPopLayer::chosenBg(CCObject* pSender)
+void MEPopLayer::chosenBg()
 {
     MELayer *layer = (MELayer*)this->getParent()->getChildren()->objectAtIndex(0);
     this->removeAllChildren();
@@ -103,4 +117,23 @@ void MEPopLayer::chosenBg(CCObject* pSender)
     this->getParent()->removeChild(this);
     
     layer->initMainScene();
+}
+
+void MEPopLayer::chosenBuilding()
+{
+    MELayer *layer = (MELayer*)this->getParent()->getChildren()->objectAtIndex(0);
+    this->removeAllChildren();
+    this->getParent()->removeChild(this);
+    selectedFile = (NSString*)[allFileName objectAtIndex:this->selcetedId];
+    layer->chosenBuilding();
+    
+}
+
+void MEPopLayer::menuOK(CCObject *pSender)
+{
+    if ([tag isEqualToString:@"background"]) {
+        chosenBg();
+    }else if([tag isEqualToString:@"buildings"]){
+        chosenBuilding();
+    }
 }

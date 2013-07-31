@@ -8,24 +8,27 @@
 
 #ifndef __MapEditor__MEPopLayer__
 #define __MapEditor__MEPopLayer__
+#import <Foundation/Foundation.h>
 #include "cocos2d.h"
-#include <iostream>
+
 class MEPopLayer : public cocos2d::CCLayer
 {
 private:
     cocos2d::CCArray *allSprites;
-    
     int selcetedId = 0;
-    int spriteTag = 12;
-    
+    const int spriteTag = 12;
+    NSString *tag;
 public:
     cocos2d::CCSprite* selectedSprite;
+    NSString *selectedFile;
     
+    MEPopLayer(NSString *tag);
     virtual bool init();
-    void selectIamge();
+    void selectImage();
     cocos2d::CCArray* SeachAttachFileInDocumentDirctory();
-    CREATE_FUNC(MEPopLayer);
-    void chosenBg(CCObject* pSender);
+    void chosenBg();
+    void chosenBuilding();
+    void menuOK(CCObject* pSender);
     
     virtual void registerWithTouchDispatcher(void);
     virtual bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);// 按下

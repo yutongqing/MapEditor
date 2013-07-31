@@ -286,7 +286,6 @@
 		9AD147C017A63FED00197937 /* libwebsockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD147BF17A63FED00197937 /* libwebsockets.a */; };
 		9AD147C617A63FED00197937 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AD147C517A63FED00197937 /* AppDelegate.cpp */; };
 		9AD147C917A63FED00197937 /* HelloWorldScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AD147C817A63FED00197937 /* HelloWorldScene.cpp */; };
-		9DCD5E4917A8B4580083E102 /* XMLWrite.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD5E4817A8B4580083E102 /* XMLWrite.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -297,6 +296,8 @@
 		06ED9C6117A7F9B40067E2B5 /* point.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = point.png; sourceTree = "<group>"; };
 		06ED9C6717A848C50067E2B5 /* MEPopLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MEPopLayer.h; path = Classes/MEPopLayer.h; sourceTree = "<group>"; };
 		06ED9C6817A848C60067E2B5 /* MEPopLayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MEPopLayer.mm; path = Classes/MEPopLayer.mm; sourceTree = "<group>"; };
+		9A8DA7EB17A8B8B40090F050 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
+		9A8DA7EC17A8B8B50090F050 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		9AD134E217A665CA009FB326 /* MELayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MELayer.mm; path = Classes/MELayer.mm; sourceTree = "<group>"; };
 		9AD134E317A665CB009FB326 /* MELayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MELayer.h; path = Classes/MELayer.h; sourceTree = "<group>"; };
 		9AD1441F17A63FE700197937 /* MapEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -920,6 +921,8 @@
 		9AD1441617A63FE700197937 = {
 			isa = PBXGroup;
 			children = (
+				9A8DA7EB17A8B8B40090F050 /* libxml2.2.dylib */,
+				9A8DA7EC17A8B8B50090F050 /* libxml2.dylib */,
 				9AD1443217A63FE700197937 /* MapEditor */,
 				9AD1442117A63FE700197937 /* Frameworks */,
 				9AD1442017A63FE700197937 /* Products */,
@@ -2462,7 +2465,6 @@
 				065D21D417A6B8660013B2F0 /* MERoute.mm in Sources */,
 				065D21DC17A6BF830013B2F0 /* MESprite.mm in Sources */,
 				06ED9C6917A848C60067E2B5 /* MEPopLayer.mm in Sources */,
-				9DCD5E4917A8B4580083E102 /* XMLWrite.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
