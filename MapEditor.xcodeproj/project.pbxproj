@@ -11,6 +11,7 @@
 		065D21DC17A6BF830013B2F0 /* MESprite.mm in Sources */ = {isa = PBXBuildFile; fileRef = 065D21DB17A6BF830013B2F0 /* MESprite.mm */; };
 		06ED9C6217A7F9B40067E2B5 /* point.png in Resources */ = {isa = PBXBuildFile; fileRef = 06ED9C6117A7F9B40067E2B5 /* point.png */; };
 		06ED9C6917A848C60067E2B5 /* MEPopLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 06ED9C6817A848C60067E2B5 /* MEPopLayer.mm */; };
+		9A7DDCBD17A912A3003DC99F /* XMLWrite.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD5E4817A8B4580083E102 /* XMLWrite.mm */; };
 		9A8C350D17A66EE000901E99 /* MEPoint.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9AD147D317A6472400197937 /* MEPoint.mm */; };
 		9A8C350E17A66F2C00901E99 /* MELayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9AD134E217A665CA009FB326 /* MELayer.mm */; };
 		9AD1442317A63FE700197937 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD1442217A63FE700197937 /* QuartzCore.framework */; };
@@ -2214,6 +2215,7 @@
 				9A8C350E17A66F2C00901E99 /* MELayer.mm in Sources */,
 				9A8C350D17A66EE000901E99 /* MEPoint.mm in Sources */,
 				9AD1444E17A63FE700197937 /* AppController.mm in Sources */,
+				9A7DDCBD17A912A3003DC99F /* XMLWrite.mm in Sources */,
 				9AD1445117A63FE700197937 /* RootViewController.mm in Sources */,
 				9AD1445317A63FE700197937 /* main.m in Sources */,
 				9AD1445817A63FE700197937 /* CCAction.cpp in Sources */,
@@ -2542,6 +2544,16 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MapEditor/Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SDK_DIR)/usr/include/libxml2\"",
+					"\"$(PROJECT_NAME)/libs/cocos2dx/kazmath/include\"",
+					"\"$(PROJECT_NAME)/libs/cocos2dx\"",
+					"\"$(PROJECT_NAME)/libs/CocosDenshion/include\"",
+					"\"$(PROJECT_NAME)/libs/extensions\"",
+					"\"$(PROJECT_NAME)/libs/cocos2dx/include\"",
+					"\"$(PROJECT_NAME)/libs/cocos2dx/platform/third_party/ios\"",
+					"\"$(PROJECT_NAME)/libs/cocos2dx/platform/ios\"",
+				);
 				INFOPLIST_FILE = MapEditor/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
@@ -2569,6 +2581,16 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MapEditor/Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SDK_DIR)/usr/include/libxml2\"",
+					"\"$(PROJECT_NAME)/libs/cocos2dx/kazmath/include\"",
+					"\"$(PROJECT_NAME)/libs/cocos2dx\"",
+					"\"$(PROJECT_NAME)/libs/CocosDenshion/include\"",
+					"\"$(PROJECT_NAME)/libs/extensions\"",
+					"\"$(PROJECT_NAME)/libs/cocos2dx/include\"",
+					"\"$(PROJECT_NAME)/libs/cocos2dx/platform/third_party/ios\"",
+					"\"$(PROJECT_NAME)/libs/cocos2dx/platform/ios\"",
+				);
 				INFOPLIST_FILE = MapEditor/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
