@@ -11,7 +11,6 @@
 		065D21DC17A6BF830013B2F0 /* MESprite.mm in Sources */ = {isa = PBXBuildFile; fileRef = 065D21DB17A6BF830013B2F0 /* MESprite.mm */; };
 		06ED9C6217A7F9B40067E2B5 /* point.png in Resources */ = {isa = PBXBuildFile; fileRef = 06ED9C6117A7F9B40067E2B5 /* point.png */; };
 		06ED9C6917A848C60067E2B5 /* MEPopLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 06ED9C6817A848C60067E2B5 /* MEPopLayer.mm */; };
-		9A5EAEB117A6968B00BD09C0 /* backgroundPic in Resources */ = {isa = PBXBuildFile; fileRef = 9A5EAEB017A6968B00BD09C0 /* backgroundPic */; };
 		9A8C350D17A66EE000901E99 /* MEPoint.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9AD147D317A6472400197937 /* MEPoint.mm */; };
 		9A8C350E17A66F2C00901E99 /* MELayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9AD134E217A665CA009FB326 /* MELayer.mm */; };
 		9AD1442317A63FE700197937 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD1442217A63FE700197937 /* QuartzCore.framework */; };
@@ -297,7 +296,6 @@
 		06ED9C6117A7F9B40067E2B5 /* point.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = point.png; sourceTree = "<group>"; };
 		06ED9C6717A848C50067E2B5 /* MEPopLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MEPopLayer.h; path = Classes/MEPopLayer.h; sourceTree = "<group>"; };
 		06ED9C6817A848C60067E2B5 /* MEPopLayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MEPopLayer.mm; path = Classes/MEPopLayer.mm; sourceTree = "<group>"; };
-		9A5EAEB017A6968B00BD09C0 /* backgroundPic */ = {isa = PBXFileReference; lastKnownFileType = folder; name = backgroundPic; path = MapEditor/backgroundPic; sourceTree = "<group>"; };
 		9AD134E217A665CA009FB326 /* MELayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MELayer.mm; path = Classes/MELayer.mm; sourceTree = "<group>"; };
 		9AD134E317A665CB009FB326 /* MELayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MELayer.h; path = Classes/MELayer.h; sourceTree = "<group>"; };
 		9AD1441F17A63FE700197937 /* MapEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -919,7 +917,6 @@
 		9AD1441617A63FE700197937 = {
 			isa = PBXGroup;
 			children = (
-				9A5EAEB017A6968B00BD09C0 /* backgroundPic */,
 				9AD1443217A63FE700197937 /* MapEditor */,
 				9AD1442117A63FE700197937 /* Frameworks */,
 				9AD1442017A63FE700197937 /* Products */,
@@ -2182,7 +2179,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A5EAEB117A6968B00BD09C0 /* backgroundPic in Resources */,
 				9AD1443517A63FE700197937 /* CloseNormal.png in Resources */,
 				9AD1443717A63FE700197937 /* CloseSelected.png in Resources */,
 				9AD1443917A63FE700197937 /* Default.png in Resources */,
