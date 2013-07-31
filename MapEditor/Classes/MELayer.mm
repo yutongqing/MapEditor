@@ -23,7 +23,7 @@ NSMutableArray *playerPuts;
 
 CCArray *playerPutSprites;
 CCSprite *selectedBuilding;
-BOOL canMoveBuilding = false;
+BOOL canMoveBuilding = true;
 
 MEPopLayer* popLayer;
 
@@ -117,9 +117,13 @@ void MELayer::createRoute()
     if (numberOfRouteCreated >= 3) {
         
         isCreateRoute = false;
+        canMoveBuilding = true;
+        
     } else
     {
         isCreateRoute = true;
+        
+        canMoveBuilding = false;
         
         NSLog(@"新建路线 menuItem is clicked...");
         
@@ -137,6 +141,8 @@ void MELayer::createRoute()
 
 void MELayer::finishRoute()
 {
+    canMoveBuilding = true;
+    
     isCreateRoute = FALSE;
     numberOfRouteCreated++;
     finishMenu->setVisible(false);
@@ -175,7 +181,7 @@ bool MELayer::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
         && pTouch->getLocation().y < s->getPosition().y + s->getContentSize().height/2
         && pTouch->getLocation().y > s->getPosition().y - s->getContentSize().height/2) {
         selectedBuilding = s;
-        canMoveBuilding = true;
+        
         }
     }
     return true;
@@ -204,7 +210,7 @@ void MELayer::ccTouchMoved(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
 void MELayer::ccTouchEnded(CCTouch *touch, CCEvent *pEvent)
 {
     selectedBuilding = nil;
-    canMoveBuilding = false;
+    //canMoveBuilding = false;
     
     locationInfoLabel->setVisible(false);
     
@@ -276,7 +282,8 @@ void MELayer::draw()
         
         for (int i = 0; i < count0 - 1; i++) {            
             CCPoint point1 = [[pointsInRoute0 objectAtIndex:i] point];
-            CCPoint point2 = [[pointsInRoute0 objectAtIndex:i + 1] point];            
+            CCPoint point2 = [[pointsInRoute0 objectAtIndex:i + 1] point];
+            ccDrawColor4B(255,0,0,255);
             ccDrawLine(point1, point2);
         }
     }
@@ -285,6 +292,7 @@ void MELayer::draw()
         for (int i = 0; i < count1 - 1; i++) {            
             CCPoint point1 = [[pointsInRoute1 objectAtIndex:i] point];
             CCPoint point2 = [[pointsInRoute1 objectAtIndex:i + 1] point];
+            ccDrawColor4B(0,255,0,255);
             ccDrawLine(point1, point2);
         }
     }
@@ -293,6 +301,7 @@ void MELayer::draw()
         for (int i = 0; i < count2 - 1; i++) {
             CCPoint point1 = [[pointsInRoute2 objectAtIndex:i] point];
             CCPoint point2 = [[pointsInRoute2 objectAtIndex:i + 1] point];
+            ccDrawColor4B(0,0,255,255);
             ccDrawLine(point1, point2);
         }
     }
