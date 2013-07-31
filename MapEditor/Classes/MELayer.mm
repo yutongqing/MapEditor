@@ -190,7 +190,12 @@ bool MELayer::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 void MELayer::ccTouchMoved(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
 {
     if (canMoveBuilding) {
-        selectedBuilding->setPosition(pTouch->getLocation());
+        
+        if (selectedBuilding) {
+            
+            selectedBuilding->setPosition(pTouch->getLocation());
+        }
+        
         }
     if(isCreateRoute) {
         
@@ -210,7 +215,7 @@ void MELayer::ccTouchMoved(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
 void MELayer::ccTouchEnded(CCTouch *touch, CCEvent *pEvent)
 {
     selectedBuilding = nil;
-    //canMoveBuilding = false;
+//    canMoveBuilding = false;
     
     locationInfoLabel->setVisible(false);
     
@@ -316,7 +321,8 @@ void MELayer::chosenBuilding()
     point.point = popLayer->selectedSprite->getPosition();
     point.fileLocation = popLayer->selectedFile;
     CCSprite *sprite = popLayer->selectedSprite;
-    sprite->setPosition(ccp(100,100));
+    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    sprite->setPosition(ccp(winSize.width / 2, winSize.height / 2));
     playerPutSprites->addObject(sprite);
     this->addChild(sprite);
 }
