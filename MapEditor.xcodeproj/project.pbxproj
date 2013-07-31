@@ -287,6 +287,7 @@
 		9AD147C017A63FED00197937 /* libwebsockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD147BF17A63FED00197937 /* libwebsockets.a */; };
 		9AD147C617A63FED00197937 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AD147C517A63FED00197937 /* AppDelegate.cpp */; };
 		9AD147C917A63FED00197937 /* HelloWorldScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AD147C817A63FED00197937 /* HelloWorldScene.cpp */; };
+		9DCD5E4917A8B4580083E102 /* XMLWrite.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD5E4817A8B4580083E102 /* XMLWrite.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -892,6 +893,8 @@
 		9AD147C817A63FED00197937 /* HelloWorldScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = HelloWorldScene.cpp; path = Classes/HelloWorldScene.cpp; sourceTree = "<group>"; };
 		9AD147D217A6472400197937 /* MEPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MEPoint.h; path = Classes/MEPoint.h; sourceTree = "<group>"; };
 		9AD147D317A6472400197937 /* MEPoint.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MEPoint.mm; path = Classes/MEPoint.mm; sourceTree = "<group>"; };
+		9DCD5E4717A8B4580083E102 /* XMLWrite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMLWrite.h; path = Classes/XMLWrite.h; sourceTree = "<group>"; };
+		9DCD5E4817A8B4580083E102 /* XMLWrite.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = XMLWrite.mm; path = Classes/XMLWrite.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2114,6 +2117,8 @@
 		9AD147C317A63FED00197937 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				9DCD5E4717A8B4580083E102 /* XMLWrite.h */,
+				9DCD5E4817A8B4580083E102 /* XMLWrite.mm */,
 				065D21DA17A6BF830013B2F0 /* MESprite.h */,
 				065D21DB17A6BF830013B2F0 /* MESprite.mm */,
 				06ED9C6717A848C50067E2B5 /* MEPopLayer.h */,
@@ -2461,6 +2466,7 @@
 				065D21D417A6B8660013B2F0 /* MERoute.mm in Sources */,
 				065D21DC17A6BF830013B2F0 /* MESprite.mm in Sources */,
 				06ED9C6917A848C60067E2B5 /* MEPopLayer.mm in Sources */,
+				9DCD5E4917A8B4580083E102 /* XMLWrite.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
