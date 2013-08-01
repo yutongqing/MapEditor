@@ -36,6 +36,7 @@ public:
     
     void createRoute();
     void finishRoute();
+    void recreateRoute();
     
     void createPlayerPut();
     void createSystemPut();

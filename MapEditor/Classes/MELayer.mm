@@ -133,9 +133,13 @@ void MELayer::createRoute()
         NSLog(@"新建路线 menuItem is clicked...");
         
         CCSize winSize = CCDirector::sharedDirector()->getWinSize();
-        CCMenuItem *menuItem = CCMenuItemFont::create("完成此路线", this, menu_selector(MELayer::finishRoute));
-        menuItem->setPosition(winSize.width - 100, winSize.height - 30);
-        finishRouteMenu = CCMenu::create(menuItem, NULL);
+        CCMenuItem *finishRouteItem = CCMenuItemFont::create("完成此路线", this, menu_selector(MELayer::finishRoute));
+        
+        CCMenuItem *deleteRouteItem = CCMenuItemFont::create("重画此路线", this, menu_selector(MELayer::recreateRoute));
+        
+        finishRouteItem->setPosition(winSize.width - 100, winSize.height - 30);
+        deleteRouteItem->setPosition(winSize.width - 300, winSize.height - 30);
+        finishRouteMenu = CCMenu::create(finishRouteItem, deleteRouteItem, NULL);
         finishRouteMenu->setPosition(CCPointZero);
         
         this->addChild(finishRouteMenu, 1);
@@ -144,19 +148,67 @@ void MELayer::createRoute()
     
 }
 
+void MELayer::recreateRoute()
+{
+    switch (numberOfRouteCreated) {
+        case 0:
+            [pointsInRoute0 release];
+            pointsInRoute0 = nil;
+            pointsInRoute0 = [[NSMutableArray alloc] init];
+            while (this->getChildByTag(0)) {
+                this->removeChildByTag(0, true);
+            }
+            break;
+        case 1:
+            [pointsInRoute1 release];
+            pointsInRoute1 = nil;
+            pointsInRoute1 = [[NSMutableArray alloc] init];
+            while (this->getChildByTag(1)) {
+                this->removeChildByTag(1, true);
+            }
+            break;
+        case 2:
+            [pointsInRoute2 release];
+            pointsInRoute2 = nil;
+            pointsInRoute2 = [[NSMutableArray alloc] init];
+            while (this->getChildByTag(2)) {
+                this->removeChildByTag(2, true);
+            }
+            break;
+            
+            
+        default:
+            break;
+    }
+    
+    for (MEPoint *p in pointsInRoute0) {
+        
+        NSLog(@"pointsInRoute0-->(%f, %f)", [p point].x, [p point].y);
+    }
+    for (MEPoint *p in pointsInRoute1) {
+        
+        NSLog(@"pointsInRoute1-->(%f, %f)", [p point].x, [p point].y);
+    }
+    for (MEPoint *p in pointsInRoute2) {
+        
+        NSLog(@"pointsInRoute2-->(%f, %f)", [p point].x, [p point].y);
+    }
+}
+
 void MELayer::finishRoute()
 {
     canMoveBuilding = true;
     
     isCreateRoute = FALSE;
     numberOfRouteCreated++;
+    NSLog(@"deleteRoute--numberOfRouteCreated ---> %d", numberOfRouteCreated);
     finishRouteMenu->setVisible(false);
     
     routeID = numberOfRouteCreated - 1;
     MERoute *route = [[MERoute alloc] init];
     [route setID:routeID];
     
-    NSLog(@"routeID ---> %d",routeID);
+    NSLog(@"deleteRoute--routeID ---> %d",routeID);
     
     [routes addObject:route];
     
@@ -239,6 +291,7 @@ void MELayer::ccTouchEnded(CCTouch *touch, CCEvent *pEvent)
         pointSprite->setPosition(touchLocation);
         this->addChild(pointSprite);
         
+        
         CCLabelTTF *pointLabel = CCLabelTTF::create("", "Helcatica", 20);
         char str[20];
         int tempX = (int)touchLocation.x;
@@ -251,12 +304,18 @@ void MELayer::ccTouchEnded(CCTouch *touch, CCEvent *pEvent)
         
         switch (numberOfRouteCreated) {
             case 0:
+                pointSprite->setTag(0);
+                pointLabel->setTag(0);
                 [pointsInRoute0 addObject:touchPoint];
                 break;
             case 1:
+                pointSprite->setTag(1);
+                pointLabel->setTag(1);
                 [pointsInRoute1 addObject:touchPoint];
                 break;
             case 2:
+                pointSprite->setTag(2);
+                pointLabel->setTag(2);
                 [pointsInRoute2 addObject:touchPoint];
                 break;
             default:
