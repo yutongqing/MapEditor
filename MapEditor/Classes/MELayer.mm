@@ -57,7 +57,7 @@ bool MELayer::init()
     
     this->setTouchEnabled(true);
     
-    playerPutSprites = new CCArray;
+    
     CCSize size = CCDirector::sharedDirector()->getWinSize();
     CCMenuItem *menuItme = CCMenuItemFont::create("请选择背景图片", this, menu_selector(MELayer::chooseBg));
     menuItme->setPosition(ccp(size.width/2,size.height/2));
@@ -74,6 +74,8 @@ void MELayer::initMainScene()
     pointsInRoute1 = [[NSMutableArray alloc] init];
     pointsInRoute2 = [[NSMutableArray alloc] init];
     
+    playerPutSprites = new CCArray;
+    playerPuts = [[NSMutableArray alloc] init];
     routes = [[NSMutableArray alloc] initWithCapacity:3];
     
     locationInfoLabel = CCLabelTTF::create("", "Helcatica", 20);
@@ -320,6 +322,7 @@ void MELayer::chosenBuilding()
     MEPoint *point = [[MEPoint alloc] init];
     point.point = popLayer->selectedSprite->getPosition();
     point.fileLocation = popLayer->selectedFile;
+    [playerPuts addObject:point];
     CCSprite *sprite = popLayer->selectedSprite;
     CCSize winSize = CCDirector::sharedDirector()->getWinSize();
     sprite->setPosition(ccp(winSize.width / 2, winSize.height / 2));
