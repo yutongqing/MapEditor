@@ -13,6 +13,7 @@
 @interface MEPoint : NSObject 
 {
     int ID;
+    cocos2d::CCSprite* sprite;
     cocos2d::CCPoint point;
     NSString *fileLocation;
     int direction;
@@ -20,6 +21,7 @@
 }
 @property(nonatomic)int ID;
 @property(nonatomic)cocos2d::CCPoint point;
+@property(nonatomic)cocos2d::CCSprite* sprite;
 @property(nonatomic,copy)NSString *fileLocation;
 @property(nonatomic)int direction;
 @property(nonatomic)int userGroup;

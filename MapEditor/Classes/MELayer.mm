@@ -100,6 +100,7 @@ void MELayer::initMainScene()
     menu->setPosition(CCPointZero);
     
     this->addChild(menu, 1);
+    this->scheduleUpdate();
 }
 
 CCScene* MELayer::scene()
@@ -109,6 +110,18 @@ CCScene* MELayer::scene()
     scene->addChild(layer);
     return scene;
 }
+
+void MELayer::update(float delta)
+{
+    for (int i = 0; i < playerPutSprites->count(); i++){
+        CCSprite *sprite = (CCSprite*)playerPutSprites->objectAtIndex(i);
+        CCSize size = CCDirector::sharedDirector()->getWinSize();
+        int zOrder = sqrt((sprite->getPosition().x) * (sprite->getPosition().x)
+                          + (sprite->getPosition().y-size.height) * (sprite->getPosition().y-size.height));
+        sprite->setZOrder( zOrder);
+    }
+}
+
 
 void MELayer::chooseBg(CCObject* pSender)
 {
@@ -394,9 +407,9 @@ void MELayer::draw()
 void MELayer::chosenBuilding()
 {
     MEPoint *point = [[MEPoint alloc] init];
-    point.point = popLayer->selectedSprite->getPosition();
+    //point.point = popLayer->selectedSprite->getPosition();
     point.fileLocation = popLayer->selectedFile;
-    
+    point.sprite = popLayer->selectedSprite;
     if (isCreatePlayerPut) {
         
         [playerPuts addObject:point];
@@ -418,14 +431,6 @@ void MELayer::chosenBuilding()
     isCreateSystemPut = false;
     
     
-    for (MEPoint *p in playerPuts) {
-        
-        NSLog(@"MEPoints in playerPuts --> (%f, %f)", [p point].x, [p point].y);
-    }
-    for (MEPoint *p in systemPuts) {
-        
-        NSLog(@"MEPoints in systemPuts --> (%f, %f)", [p point].x, [p point].y);
-    }
 }
 
 void MELayer::createPlayerPut()
