@@ -217,7 +217,7 @@ void MELayer::ccTouchMoved(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
             
         }
         
-        }
+    }
         
         
     CCPoint p = pTouch->getLocation();
@@ -232,10 +232,15 @@ void MELayer::ccTouchMoved(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
     locationInfoLabel->setVisible(true);
     
     
-    }
+}
+
 void MELayer::ccTouchEnded(CCTouch *touch, CCEvent *pEvent)
 {
-    selectedBuilding = nil;
+    if (selectedBuilding) {
+        
+        selectedBuilding = nil;
+    }
+    
 //    canMoveBuilding = false;
     
     locationInfoLabel->setVisible(false);
@@ -302,6 +307,7 @@ void MELayer::ccTouchEnded(CCTouch *touch, CCEvent *pEvent)
         
         
     }
+    
 }
 
 void MELayer::draw()
@@ -348,9 +354,9 @@ void MELayer::draw()
 void MELayer::chosenBuilding()
 {
     MEPoint *point = [[MEPoint alloc] init];
-    point.point = popLayer->selectedSprite->getPosition();
+    //point.point = popLayer->selectedSprite->getPosition();
     point.fileLocation = popLayer->selectedFile;
-    
+    point.sprite = popLayer->selectedSprite;
     if (isCreatePlayerPut) {
         
         [playerPuts addObject:point];
@@ -372,14 +378,6 @@ void MELayer::chosenBuilding()
     isCreateSystemPut = false;
     
     
-    for (MEPoint *p in playerPuts) {
-        
-        NSLog(@"MEPoints in playerPuts --> (%f, %f)", [p point].x, [p point].y);
-    }
-    for (MEPoint *p in systemPuts) {
-        
-        NSLog(@"MEPoints in systemPuts --> (%f, %f)", [p point].x, [p point].y);
-    }
 }
 
 void MELayer::createPlayerPut()

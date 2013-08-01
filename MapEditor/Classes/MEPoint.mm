@@ -14,4 +14,5 @@
 @synthesize fileLocation;
 @synthesize direction;
 @synthesize userGroup;
+@synthesize sprite;
 @end

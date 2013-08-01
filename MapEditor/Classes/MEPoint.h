@@ -17,12 +17,14 @@
     NSString *fileLocation;
     int direction;
     int userGroup;
+    cocos2d::CCSprite* sprite;
 }
 @property(nonatomic)int ID;
 @property(nonatomic)cocos2d::CCPoint point;
 @property(nonatomic,copy)NSString *fileLocation;
 @property(nonatomic)int direction;
 @property(nonatomic)int userGroup;
+@property(nonatomic)cocos2d::CCSprite* sprite;
 @end
 
 #endif
