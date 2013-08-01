@@ -6,6 +6,10 @@
 //
 //
 
+
+#ifndef MAPEDITOR_MERoute
+#define MAPEDITOR_MERoute
+
 #import <Foundation/Foundation.h>
 
 @interface MERoute : NSObject
@@ -23,3 +27,4 @@
 @property(nonatomic, retain) NSMutableArray *points;
 
 @end
+#endif

@@ -44,7 +44,8 @@ public:
     void createSceneObj();
     
     virtual void draw();
-    
+    void xmlWriteData();
+
     
 };
 

@@ -11,7 +11,7 @@
 #include "MERoute.h"
 #include "MESprite.h"
 #include "MEPopLayer.h"
-
+#include "XMLWrite.h"
 using namespace cocos2d;
 
 CCLabelTTF *locationInfoLabel;
@@ -93,15 +93,31 @@ void MELayer::initMainScene()
     menuItem2->setPosition(winSize.width / 5 * 2, winSize.height / 8);
     CCMenuItem *menuItem3 = CCMenuItemFont::create("中立点", this, menu_selector(MELayer::createSystemPut));
     menuItem3->setPosition(winSize.width / 5 * 3, winSize.height / 8);
-    CCMenuItem *menuItem4 = CCMenuItemFont::create("图素", this, menu_selector(MELayer::createSceneObj));
+    CCMenuItem *menuItem4 = CCMenuItemFont::create("保存", this, menu_selector(MELayer::xmlWriteData));
     menuItem4->setPosition(winSize.width / 5 * 4, winSize.height / 8);
-    
+  
     CCMenu *menu = CCMenu::create(menuItem1, menuItem2, menuItem3, menuItem4, NULL);
     menu->setPosition(CCPointZero);
     
     this->addChild(menu, 1);
     this->scheduleUpdate();
 }
+
+void MELayer::xmlWriteData()
+{
+    
+    //将数据写入xml
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *dir = [paths objectAtIndex:0];
+    dir = [[dir stringByAppendingString:@"/"] stringByAppendingString:@"mapData.xml"];
+    XMLWrite xmlWrite;
+    xmlWrite.XMLWriteInit(dir, @"1.0", @"utf-8");
+    
+    xmlWrite.xmlDataWrite(xmlWrite,routes,playerPuts,bgSprite->getContentSize().width,bgSprite->getContentSize().height,@"bg.png");
+    
+}
+
+
 
 CCScene* MELayer::scene()
 {
