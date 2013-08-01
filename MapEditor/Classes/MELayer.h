@@ -36,7 +36,7 @@ public:
     
     void createRoute();
     void finishRoute();
-    
+    void update(float delta);
     void createPlayerPut();
     void createSystemPut();
     void createSceneObj();

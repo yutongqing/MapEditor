@@ -97,6 +97,8 @@ void MELayer::initMainScene()
     menu->setPosition(CCPointZero);
     
     this->addChild(menu, 1);
+    
+    this->scheduleUpdate();
 }
 
 CCScene* MELayer::scene()
@@ -105,6 +107,17 @@ CCScene* MELayer::scene()
     MELayer *layer = MELayer::create();
     scene->addChild(layer);
     return scene;
+}
+
+void MELayer::update(float delta)
+{
+    for (int i = 0; i < playerPutSprites->count(); i++){
+        CCSprite *sprite = (CCSprite*)playerPutSprites->objectAtIndex(i);
+        CCSize size = CCDirector::sharedDirector()->getWinSize();
+        int zOrder = sqrt((sprite->getPosition().x) * (sprite->getPosition().x)
+                          + (sprite->getPosition().y-size.height) * (sprite->getPosition().y-size.height));
+        sprite->setZOrder( zOrder);
+    }
 }
 
 void MELayer::chooseBg(CCObject* pSender)
