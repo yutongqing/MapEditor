@@ -121,11 +121,11 @@ void MEPopLayer::chosenBg()
 
 void MEPopLayer::chosenBuilding()
 {
-    MELayer *layer = (MELayer*)this->getParent()->getChildren()->objectAtIndex(0);
+    MELayer *layer0 = (MELayer*)this->getParent()->getChildren()->objectAtIndex(0);
     this->removeAllChildren();
     this->getParent()->removeChild(this);
     selectedFile = (NSString*)[allFileName objectAtIndex:this->selcetedId];
-    layer->chosenBuilding();
+    layer0->chosenBuilding();
     
 }
 
