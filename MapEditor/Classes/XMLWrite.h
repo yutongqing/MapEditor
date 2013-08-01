@@ -35,7 +35,7 @@ public:
     void setXMLWriteEncoding(NSString *xmlWriteEncoding);
     NSString* getXMLWriteEncoding();
     //根据通过参数获取的N个对象，从中读取需要的数据，并按一定的格式输出到xml文件中
-    bool xmlDataWrite(XMLWrite xmlWriteObj,NSMutableArray *routes, NSMutableArray *playerPosition,float bgmap_width,float bgmap_height,const NSString *bgmapFilePath);
+    bool xmlDataWrite(XMLWrite xmlWriteObj,NSMutableArray *routes, NSMutableArray *playerPosition,NSMutableArray *systemPuts,float bgmap_width,float bgmap_height,const NSString *bgmapFilePath);
     //调用写入XML方法前需要调用的xml初始化方法
     bool XMLWriteInit(NSString *xmlFileSavePath,NSString *xmlWriteVersion,NSString *xmlWriteEncoding);
 };

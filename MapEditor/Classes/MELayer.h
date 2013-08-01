@@ -35,6 +35,10 @@ public:
     virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
     virtual void registerWithTouchDispatcher();
     
+    void showRecreateAllAlert();
+    
+    void recreateAll();
+    
     void createRoute();
     void finishRoute();
     void recreateRoute();
@@ -45,7 +49,7 @@ public:
     
     virtual void draw();
     void xmlWriteData();
-
+    void printAllArrays();
     
 };
 

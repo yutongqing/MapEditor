@@ -14,7 +14,6 @@
 #include "XMLWrite.h"
 using namespace cocos2d;
 
-CCLabelTTF *locationInfoLabel;
 
 MEPoint *homeA;
 MEPoint *homeB;
@@ -22,14 +21,14 @@ NSMutableArray *routes;
 NSMutableArray *playerPuts;
 NSMutableArray *systemPuts;
 
-CCArray *playerPutSprites;
-
-CCSprite *selectedBuilding;
-BOOL canMoveBuilding = true;
-
+CCLabelTTF *locationInfoLabel;  //手指在屏幕上移动时，在触摸点上方显示的触摸坐标
+CCSprite *dustbinSprite;    //移动玩家放置点或者中立点的时候，屏幕左上角显示的垃圾桶图案
+CCArray *playerPutSprites;  //显示出来的玩家放置点和中立点的精灵
+CCSprite *selectedBuilding; //当前选择的玩家放置点或者中立点
+BOOL canMoveBuilding = true;    //玩家放置点或中立点是否可以移动
 MEPopLayer* popLayer;
-
-CCMenu *finishRouteMenu; //完成此路线
+CCMenu *finishRouteMenu; //完成此路线的菜单
+CCMenu *recreateAllMenu;    //全部重画菜单
 
 int numberOfRouteCreated = 0;   //已经创建好的路径条数，点击一次“完成此路线”计数+1
 
@@ -44,6 +43,8 @@ bool isCreateSceneObj = false;
 
 int pointID = 0;
 int routeID = 0;
+int playerPutID = 0;
+int systemPutID = 0;
 
 void MELayer::registerWithTouchDispatcher()
 {
@@ -56,9 +57,7 @@ bool MELayer::init()
     if (!CCLayer::init()) {
         return false;
     }
-    
-    this->setTouchEnabled(true);
-    
+       
     
     CCSize size = CCDirector::sharedDirector()->getWinSize();
     CCMenuItem *menuItme = CCMenuItemFont::create("请选择背景图片", this, menu_selector(MELayer::chooseBg));
@@ -72,6 +71,16 @@ bool MELayer::init()
 
 void MELayer::initMainScene()
 {
+    this->setTouchEnabled(true);
+    
+    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    
+    dustbinSprite = new CCSprite();
+    dustbinSprite->initWithFile("dustbin_normal.png");
+    dustbinSprite->setPosition(ccp(50, winSize.height - 50));
+    dustbinSprite->setVisible(false);
+    this->addChild(dustbinSprite);
+    
     pointsInRoute0 = [[NSMutableArray alloc] init];
     pointsInRoute1 = [[NSMutableArray alloc] init];
     pointsInRoute2 = [[NSMutableArray alloc] init];
@@ -85,7 +94,7 @@ void MELayer::initMainScene()
     locationInfoLabel->setVisible(false);
     this->addChild(locationInfoLabel);
     
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+
     
     CCMenuItem *menuItem1 = CCMenuItemFont::create("新建路线", this, menu_selector(MELayer::createRoute));
     menuItem1->setPosition(winSize.width / 5 * 1, winSize.height / 8);
@@ -99,9 +108,62 @@ void MELayer::initMainScene()
     CCMenu *menu = CCMenu::create(menuItem1, menuItem2, menuItem3, menuItem4, NULL);
     menu->setPosition(CCPointZero);
     
+    CCMenuItem *recreateAllMenuItem = CCMenuItemFont::create("重画此地图", this, menu_selector(MELayer::recreateAll));
+    recreateAllMenu = CCMenu::create(recreateAllMenuItem, NULL);
+    recreateAllMenu->setPosition(CCPointZero);
+    recreateAllMenuItem->setPosition(200, winSize.height - 50);
+    this->addChild(recreateAllMenu);
+    
     this->addChild(menu, 1);
     this->scheduleUpdate();
 }
+
+void MELayer::recreateAll()
+{
+    
+    NSLog(@"before recreateAll:");
+    printAllArrays();
+    
+    numberOfRouteCreated = 0;
+    
+    [pointsInRoute0 release];
+    pointsInRoute0 = nil;
+    pointsInRoute0 = [[NSMutableArray alloc] init];
+    [pointsInRoute1 release];
+    pointsInRoute1 = nil;
+    pointsInRoute1 = [[NSMutableArray alloc] init];
+    [pointsInRoute2 release];
+    pointsInRoute2 = nil;
+    pointsInRoute2 = [[NSMutableArray alloc] init];
+    while (this->getChildByTag(0)) {
+        this->removeChildByTag(0, true);
+    }
+    while (this->getChildByTag(1)) {
+        this->removeChildByTag(1, true);
+    }
+    while (this->getChildByTag(2)) {
+        this->removeChildByTag(2, true);
+    }
+    while (this->getChildByTag(8)) {
+        this->removeChildByTag(8, true);
+    }
+    
+    [playerPuts release];
+    playerPuts = nil;
+    playerPuts = [[NSMutableArray alloc] init];
+    
+    [systemPuts release];
+    systemPuts = nil;
+    systemPuts = [[NSMutableArray alloc] init];
+    
+    playerPutSprites->release();
+    playerPutSprites = NULL;
+    playerPutSprites = new CCArray();
+    
+    NSLog(@"after recreateAll:");
+    printAllArrays();
+}
+
 
 void MELayer::xmlWriteData()
 {
@@ -113,7 +175,7 @@ void MELayer::xmlWriteData()
     XMLWrite xmlWrite;
     xmlWrite.XMLWriteInit(dir, @"1.0", @"utf-8");
     
-    xmlWrite.xmlDataWrite(xmlWrite,routes,playerPuts,bgSprite->getContentSize().width,bgSprite->getContentSize().height,@"bg.png");
+    xmlWrite.xmlDataWrite(xmlWrite,routes,playerPuts,systemPuts,bgSprite->getContentSize().width,bgSprite->getContentSize().height,@"bg.png");
     
 }
 
@@ -166,6 +228,7 @@ void MELayer::createRoute()
         
         CCMenuItem *deleteRouteItem = CCMenuItemFont::create("重画此路线", this, menu_selector(MELayer::recreateRoute));
         
+        
         finishRouteItem->setPosition(winSize.width - 100, winSize.height - 30);
         deleteRouteItem->setPosition(winSize.width - 300, winSize.height - 30);
         finishRouteMenu = CCMenu::create(finishRouteItem, deleteRouteItem, NULL);
@@ -210,18 +273,7 @@ void MELayer::recreateRoute()
             break;
     }
     
-    for (MEPoint *p in pointsInRoute0) {
-        
-        NSLog(@"pointsInRoute0-->(%f, %f)", [p point].x, [p point].y);
-    }
-    for (MEPoint *p in pointsInRoute1) {
-        
-        NSLog(@"pointsInRoute1-->(%f, %f)", [p point].x, [p point].y);
-    }
-    for (MEPoint *p in pointsInRoute2) {
-        
-        NSLog(@"pointsInRoute2-->(%f, %f)", [p point].x, [p point].y);
-    }
+    
 }
 
 void MELayer::finishRoute()
@@ -230,14 +282,14 @@ void MELayer::finishRoute()
     
     isCreateRoute = FALSE;
     numberOfRouteCreated++;
-    NSLog(@"deleteRoute--numberOfRouteCreated ---> %d", numberOfRouteCreated);
+
     finishRouteMenu->setVisible(false);
     
     routeID = numberOfRouteCreated - 1;
     MERoute *route = [[MERoute alloc] init];
     [route setID:routeID];
     
-    NSLog(@"deleteRoute--routeID ---> %d",routeID);
+
     
     [routes addObject:route];
     
@@ -282,7 +334,8 @@ void MELayer::ccTouchMoved(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
             
             selectedBuilding->setPosition(pTouch->getLocation());
             
-            
+            dustbinSprite->setVisible(true);
+
         }
         
         }
@@ -303,6 +356,32 @@ void MELayer::ccTouchMoved(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
     }
 void MELayer::ccTouchEnded(CCTouch *touch, CCEvent *pEvent)
 {
+    if (selectedBuilding) {
+        
+        CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+        
+        CCPoint p = selectedBuilding->getPosition();
+        if (p.x < 50 && p.y > winSize.height - 50) {
+            
+            playerPutSprites->removeObject(selectedBuilding);
+            for (int i = 0; i < [playerPuts count]; i++) {
+                
+                if (selectedBuilding == [[playerPuts objectAtIndex:i] sprite]) {
+                    
+                    [playerPuts removeObjectAtIndex:i];
+                }
+            }
+            for (int i = 0; i < [systemPuts count]; i++) {
+                
+                if (selectedBuilding == [[systemPuts objectAtIndex:i] sprite]) {
+                    
+                    [systemPuts removeObjectAtIndex:i];
+                }
+            }
+            this->removeChildByTag(8);
+        }
+    }
+    
     selectedBuilding = nil;
 //    canMoveBuilding = false;
     
@@ -427,10 +506,12 @@ void MELayer::chosenBuilding()
     point.fileLocation = popLayer->selectedFile;
     point.sprite = popLayer->selectedSprite;
     if (isCreatePlayerPut) {
-        
+        [point setID:playerPutID];
+        playerPutID++;
         [playerPuts addObject:point];
     } else if (isCreateSystemPut) {
-        
+        [point setID:systemPutID];
+        systemPutID++;
         [systemPuts addObject:point];
     }
     
@@ -439,6 +520,7 @@ void MELayer::chosenBuilding()
     CCSize winSize = CCDirector::sharedDirector()->getWinSize();
     sprite->setPosition(ccp(winSize.width / 2, winSize.height / 2));
     playerPutSprites->addObject(sprite);
+    sprite->setTag(8);
     this->addChild(sprite);
     
     
@@ -473,5 +555,39 @@ void MELayer::createSystemPut()
 void MELayer::createSceneObj()
 {
     NSLog(@"图素 menuItem is clicked...");
+}
+
+void MELayer::printAllArrays()
+{
+    NSLog(@"***************************************************");
+    NSLog(@"The NSMutableArray routes has %d items.", [routes count]);
+    
+    for (MEPoint *p in pointsInRoute0) {
+        
+        NSLog(@"pointsInRoute0-->(%f, %f)", [p point].x, [p point].y);
+    }
+    for (MEPoint *p in pointsInRoute1) {
+        
+        NSLog(@"pointsInRoute1-->(%f, %f)", [p point].x, [p point].y);
+    }
+    for (MEPoint *p in pointsInRoute2) {
+        
+        NSLog(@"pointsInRoute2-->(%f, %f)", [p point].x, [p point].y);
+    }
+    
+    NSLog(@"-------------------------------");
+    for (MEPoint *p in playerPuts) {
+        
+        NSLog(@"playerPuts --> (%f, %f)", [p sprite]->getPosition().x, [p sprite]->getPosition().y);
+    }
+    
+    NSLog(@"-------------------------------");
+    for (MEPoint *p in systemPuts) {
+        
+        NSLog(@"systemPuts --> (%f, %f)", [p sprite]->getPosition().x, [p sprite]->getPosition().y);
+    }
+    
+    
+    
 }
 

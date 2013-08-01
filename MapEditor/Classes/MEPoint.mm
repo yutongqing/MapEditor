@@ -15,4 +15,18 @@
 @synthesize direction;
 @synthesize userGroup;
 @synthesize sprite;
+@synthesize routeID;
+@synthesize startPoint;
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        direction = 0;
+        userGroup = 0;
+        routeID = 0;
+        startPoint = 0;
+    }
+    return self;
+}
 @end

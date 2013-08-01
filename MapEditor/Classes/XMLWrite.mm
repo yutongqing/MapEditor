@@ -18,7 +18,24 @@
  输出：xml处理流程是否有正常
  功能：将对象里的数据按照既定格式输出到xml文档中
  *****************************/
-bool XMLWrite::xmlDataWrite(XMLWrite xmlWriteObj,NSMutableArray *routes, NSMutableArray *playerPosition,float bgmap_width,float bgmap_height,const NSString *bgmapFilePath)
+char * parse(int value)
+{
+    char *data = new char[10];
+    memset(data, 0, 10);
+    sprintf(data, "%d",value);
+    return data;
+}
+
+char * parse(float value)
+{
+    char *data = new char[10];
+    memset(data, 0, 10);
+    sprintf(data, "%f",value);
+    return data;
+}
+
+
+bool XMLWrite::xmlDataWrite(XMLWrite xmlWriteObj,NSMutableArray *routes, NSMutableArray *playerPosition,NSMutableArray *systemPuts,float bgmap_width,float bgmap_height,const NSString *bgmapFilePath)
 {
     
     if ( routes == NULL && playerPosition == NULL) {
@@ -30,13 +47,13 @@ bool XMLWrite::xmlDataWrite(XMLWrite xmlWriteObj,NSMutableArray *routes, NSMutab
     
     
     if (NULL == xmlWriteObj.getXMLDocWritePtr()) {
-        CCLOG("xml指针异常");
+        NSLog(@"xml指针异常");
         xmlFreeDoc(xmlWriteObj.getXMLDocWritePtr());
         return false;
     }
     
     if (NULL == xmlWriteObj.getXMLWriteRootNode()) {
-        CCLOG("xml根节点指针异常");
+        NSLog(@"xml根节点指针异常");
         xmlFreeDoc(xmlWriteObj.getXMLDocWritePtr());
         return false;
     }
@@ -52,10 +69,9 @@ bool XMLWrite::xmlDataWrite(XMLWrite xmlWriteObj,NSMutableArray *routes, NSMutab
     xmlAddChild(xmlChildNodeOfRootNode1, xmlChildNodeOfHeadNode2);
     
     //数据处理开始
-    char *path[10];
-    itoa(345,path,10)
-    xmlNewProp(xmlChildNodeOfHeadNode1, BAD_CAST "x", BAD_CAST path);
-    xmlNewProp(xmlChildNodeOfHeadNode1, BAD_CAST "y", BAD_CAST (char)bgmap_height);
+    
+    xmlNewProp(xmlChildNodeOfHeadNode1, BAD_CAST "x", BAD_CAST parse(bgmap_width));
+    xmlNewProp(xmlChildNodeOfHeadNode1, BAD_CAST "y", BAD_CAST parse(bgmap_height));
     xmlNewProp(xmlChildNodeOfHeadNode2, BAD_CAST "location", BAD_CAST bgmapFilePath);
     
     
@@ -68,18 +84,18 @@ bool XMLWrite::xmlDataWrite(XMLWrite xmlWriteObj,NSMutableArray *routes, NSMutab
         xmlNodePtr xmlChildNodeOfRoutesNode1 = xmlNewNode(NULL, BAD_CAST "route");
         xmlAddChild(xmlChildNodeOfRootNode2, xmlChildNodeOfRoutesNode1);
         
-        xmlNewProp(xmlChildNodeOfRoutesNode1, BAD_CAST "id", BAD_CAST route.ID);
-        xmlNewProp(xmlChildNodeOfRoutesNode1, BAD_CAST "head", BAD_CAST route.head);
-        xmlNewProp(xmlChildNodeOfRoutesNode1, BAD_CAST "tail", BAD_CAST route.tail);
+        xmlNewProp(xmlChildNodeOfRoutesNode1, BAD_CAST "id", BAD_CAST parse(route.ID));
+        xmlNewProp(xmlChildNodeOfRoutesNode1, BAD_CAST "head", BAD_CAST parse(route.head));
+        xmlNewProp(xmlChildNodeOfRoutesNode1, BAD_CAST "tail", BAD_CAST parse(route.tail));
         
         for (MEPoint *pointOfRoute in route.points) {
             
             xmlNodePtr xmlChildNodeOfRouteNode1 = xmlNewNode(NULL, BAD_CAST "point");
             xmlAddChild(xmlChildNodeOfRoutesNode1, xmlChildNodeOfRouteNode1);
             
-            xmlNewProp(xmlChildNodeOfRouteNode1, BAD_CAST "id", BAD_CAST pointOfRoute.ID);
-            xmlNewProp(xmlChildNodeOfRouteNode1, BAD_CAST "x", BAD_CAST (char)pointOfRoute.point.x);
-            xmlNewProp(xmlChildNodeOfRouteNode1, BAD_CAST "y", BAD_CAST (char)pointOfRoute.point.y);
+            xmlNewProp(xmlChildNodeOfRouteNode1, BAD_CAST "id", BAD_CAST parse(pointOfRoute.ID));
+            xmlNewProp(xmlChildNodeOfRouteNode1, BAD_CAST "x", BAD_CAST parse(pointOfRoute.point.x));
+            xmlNewProp(xmlChildNodeOfRouteNode1, BAD_CAST "y", BAD_CAST parse(pointOfRoute.point.y));
         }
         
     }
@@ -92,21 +108,57 @@ bool XMLWrite::xmlDataWrite(XMLWrite xmlWriteObj,NSMutableArray *routes, NSMutab
         xmlNodePtr xmlChildNodeOfPlayerPutsNode1 = xmlNewNode(NULL, BAD_CAST "playerPut");
         xmlAddChild(xmlChildNodeOfRootNode3, xmlChildNodeOfPlayerPutsNode1);
         
-        xmlNodePtr xmlChildNodeOfPlayerPutNode1 = xmlNewNode(NULL, BAD_CAST "position");
-        xmlNodePtr xmlChildNodeOfPlayerPutNode2 = xmlNewNode(NULL, BAD_CAST "route");
+        xmlNodePtr xmlChildNodeOfPlayerPutNode1 = xmlNewNode(NULL, BAD_CAST "file");
+        xmlNodePtr xmlChildNodeOfPlayerPutNode2 = xmlNewNode(NULL, BAD_CAST "position");
+        xmlNodePtr xmlChildNodeOfPlayerPutNode3 = xmlNewNode(NULL, BAD_CAST "route");
         xmlAddChild(xmlChildNodeOfPlayerPutsNode1, xmlChildNodeOfPlayerPutNode1);
         xmlAddChild(xmlChildNodeOfPlayerPutsNode1, xmlChildNodeOfPlayerPutNode2);
+        xmlAddChild(xmlChildNodeOfPlayerPutsNode1, xmlChildNodeOfPlayerPutNode3);
         
         
-        xmlNewProp(xmlChildNodeOfPlayerPutsNode1, BAD_CAST "id", BAD_CAST playerPositionChildren.ID);
-        xmlNewProp(xmlChildNodeOfPlayerPutsNode1, BAD_CAST "user_group", BAD_CAST playerPositionChildren.userGroup);
+        xmlNewProp(xmlChildNodeOfPlayerPutsNode1, BAD_CAST "id", BAD_CAST parse(playerPositionChildren.ID));
+        xmlNewProp(xmlChildNodeOfPlayerPutsNode1, BAD_CAST "user_group", BAD_CAST parse(playerPositionChildren.userGroup));
         
-        xmlNewProp(xmlChildNodeOfPlayerPutNode1, BAD_CAST "x", BAD_CAST (char)playerPositionChildren.point.x);
-        xmlNewProp(xmlChildNodeOfPlayerPutNode1, BAD_CAST "y", BAD_CAST (char)playerPositionChildren.point.y);
-        xmlNewProp(xmlChildNodeOfPlayerPutNode1, BAD_CAST "direction", BAD_CAST playerPositionChildren.direction);
+        xmlNewProp(xmlChildNodeOfPlayerPutNode1, BAD_CAST "location", BAD_CAST playerPositionChildren.fileLocation);
         
+        
+        xmlNewProp(xmlChildNodeOfPlayerPutNode2, BAD_CAST "x", BAD_CAST parse(playerPositionChildren.sprite->getPosition().x));
+        xmlNewProp(xmlChildNodeOfPlayerPutNode2, BAD_CAST "y", BAD_CAST parse(playerPositionChildren.sprite->getPosition().y));
+        xmlNewProp(xmlChildNodeOfPlayerPutNode2, BAD_CAST "direction", BAD_CAST parse(playerPositionChildren.direction));
         xmlNewProp(xmlChildNodeOfPlayerPutNode2, BAD_CAST "id", BAD_CAST "1");
         xmlNewProp(xmlChildNodeOfPlayerPutNode2, BAD_CAST "startPoint", BAD_CAST "0");
+        
+        
+    }
+    
+    xmlNodePtr xmlChildNodeOfRootNode4 = xmlNewNode(NULL, BAD_CAST "systemPuts");
+    xmlAddChild(xmlWriteObj.getXMLWriteRootNode(), xmlChildNodeOfRootNode4);
+    
+    for(MEPoint *systemPoint in systemPuts)
+    {
+        
+        xmlNodePtr xmlChildNodeOfSystemPutsNode1 = xmlNewNode(NULL, BAD_CAST "systemPut");
+        xmlAddChild(xmlChildNodeOfRootNode3, xmlChildNodeOfSystemPutsNode1);
+        
+        xmlNodePtr xmlChildNodeOfSystemPutNode1 = xmlNewNode(NULL, BAD_CAST "file");
+        xmlNodePtr xmlChildNodeOfSystemPutNode2 = xmlNewNode(NULL, BAD_CAST "position");
+        xmlNodePtr xmlChildNodeOfSystemPutNode3 = xmlNewNode(NULL, BAD_CAST "route");
+        xmlAddChild(xmlChildNodeOfSystemPutsNode1, xmlChildNodeOfSystemPutNode1);
+        xmlAddChild(xmlChildNodeOfSystemPutsNode1, xmlChildNodeOfSystemPutNode2);
+        xmlAddChild(xmlChildNodeOfSystemPutsNode1, xmlChildNodeOfSystemPutNode3);
+        
+        
+        xmlNewProp(xmlChildNodeOfSystemPutsNode1, BAD_CAST "id", BAD_CAST parse(systemPoint.ID));
+        xmlNewProp(xmlChildNodeOfSystemPutsNode1, BAD_CAST "user_group", BAD_CAST parse(systemPoint.userGroup));
+        
+        xmlNewProp(xmlChildNodeOfSystemPutNode1, BAD_CAST "location", BAD_CAST systemPoint.fileLocation);
+        
+        xmlNewProp(xmlChildNodeOfSystemPutNode2, BAD_CAST "x", BAD_CAST parse(systemPoint.sprite->getPosition().x));
+        xmlNewProp(xmlChildNodeOfSystemPutNode2, BAD_CAST "y", BAD_CAST parse(systemPoint.sprite->getPosition().y));
+        xmlNewProp(xmlChildNodeOfSystemPutNode2, BAD_CAST "direction", BAD_CAST parse(systemPoint.direction));
+        
+        xmlNewProp(xmlChildNodeOfSystemPutNode3, BAD_CAST "id", BAD_CAST "1");
+        xmlNewProp(xmlChildNodeOfSystemPutNode3, BAD_CAST "startPoint", BAD_CAST "0");
         
     }
     
@@ -137,7 +189,7 @@ bool XMLWrite::XMLWriteInit(NSString *xmlFileSavePath,NSString *xmlWriteVersion,
     this->setXMLWriteVersion(xmlWriteVersion);
     this->setXMLWriteEncoding(xmlWriteEncoding);
     if (this->getXMlFileSavePath() == NULL || this->getXMLWriteVersion() == NULL || this->getXMLWriteEncoding() == NULL) {
-        CCLOG("xml数据初始化失败！");
+        NSLog(@"xml数据初始化失败！");
         return false;
     }
     return true;

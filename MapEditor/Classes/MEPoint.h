@@ -18,6 +18,8 @@
     NSString *fileLocation;
     int direction;
     int userGroup;
+    int routeID;
+    int startPoint;
 }
 @property(nonatomic)int ID;
 @property(nonatomic)cocos2d::CCPoint point;
@@ -25,6 +27,8 @@
 @property(nonatomic,copy)NSString *fileLocation;
 @property(nonatomic)int direction;
 @property(nonatomic)int userGroup;
+@property(nonatomic)int routeID;
+@property(nonatomic)int startPoint;
 @end
 
 #endif
