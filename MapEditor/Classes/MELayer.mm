@@ -20,14 +20,16 @@ MEPoint *homeA;
 MEPoint *homeB;
 NSMutableArray *routes;
 NSMutableArray *playerPuts;
+NSMutableArray *systemPuts;
 
 CCArray *playerPutSprites;
+
 CCSprite *selectedBuilding;
 BOOL canMoveBuilding = true;
 
 MEPopLayer* popLayer;
 
-CCMenu *finishMenu; //完成此路线
+CCMenu *finishRouteMenu; //完成此路线
 
 int numberOfRouteCreated = 0;   //已经创建好的路径条数，点击一次“完成此路线”计数+1
 
@@ -76,6 +78,7 @@ void MELayer::initMainScene()
     
     playerPutSprites = new CCArray;
     playerPuts = [[NSMutableArray alloc] init];
+    systemPuts = [[NSMutableArray alloc] init];
     routes = [[NSMutableArray alloc] initWithCapacity:3];
     
     locationInfoLabel = CCLabelTTF::create("", "Helcatica", 20);
@@ -145,10 +148,10 @@ void MELayer::createRoute()
         CCSize winSize = CCDirector::sharedDirector()->getWinSize();
         CCMenuItem *menuItem = CCMenuItemFont::create("完成此路线", this, menu_selector(MELayer::finishRoute));
         menuItem->setPosition(winSize.width - 100, winSize.height - 30);
-        finishMenu = CCMenu::create(menuItem, NULL);
-        finishMenu->setPosition(CCPointZero);
+        finishRouteMenu = CCMenu::create(menuItem, NULL);
+        finishRouteMenu->setPosition(CCPointZero);
         
-        this->addChild(finishMenu, 1);
+        this->addChild(finishRouteMenu, 1);
     }
     
     
@@ -160,7 +163,7 @@ void MELayer::finishRoute()
     
     isCreateRoute = FALSE;
     numberOfRouteCreated++;
-    finishMenu->setVisible(false);
+    finishRouteMenu->setVisible(false);
     
     routeID = numberOfRouteCreated - 1;
     MERoute *route = [[MERoute alloc] init];
@@ -199,6 +202,7 @@ bool MELayer::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
         
         }
     }
+    
     return true;
 }
 
@@ -209,22 +213,24 @@ void MELayer::ccTouchMoved(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
         if (selectedBuilding) {
             
             selectedBuilding->setPosition(pTouch->getLocation());
+            
+            
         }
         
         }
-    if(isCreateRoute) {
         
-        CCPoint p = pTouch->getLocation();
         
-        char str[20];
-        int tempX = (int)p.x;
-        int tempY = (int)p.y;
-        std::sprintf(str, "(%d, %d)", tempX, tempY);
+    CCPoint p = pTouch->getLocation();
         
-        locationInfoLabel->setString(str);
-        locationInfoLabel->setPosition(ccp(p.x, p.y + 50));
-        locationInfoLabel->setVisible(true);
-    }
+    char str[20];
+    int tempX = (int)p.x;
+    int tempY = (int)p.y;
+    std::sprintf(str, "(%d, %d)", tempX, tempY);
+        
+    locationInfoLabel->setString(str);
+    locationInfoLabel->setPosition(ccp(p.x, p.y + 50));
+    locationInfoLabel->setVisible(true);
+    
     
     }
 void MELayer::ccTouchEnded(CCTouch *touch, CCEvent *pEvent)
@@ -277,7 +283,16 @@ void MELayer::ccTouchEnded(CCTouch *touch, CCEvent *pEvent)
         
     }else if (isCreatePlayerPut) {
         
+        CCPoint touchLocation = touch->getLocation();
+        CCLabelTTF *pointLabel = CCLabelTTF::create("", "Helcatica", 20);
+        char str[20];
+        int tempX = (int)touchLocation.x;
+        int tempY = (int)touchLocation.y;
+        std::sprintf(str, "(%d, %d)", tempX, tempY);
         
+        pointLabel->setString(str);
+        pointLabel->setPosition(ccp(touchLocation.x, touchLocation.y + 50));
+        this->addChild(pointLabel);
         
     }else if (isCreateSystemPut) {
         
@@ -335,25 +350,57 @@ void MELayer::chosenBuilding()
     MEPoint *point = [[MEPoint alloc] init];
     point.point = popLayer->selectedSprite->getPosition();
     point.fileLocation = popLayer->selectedFile;
-    [playerPuts addObject:point];
+    
+    if (isCreatePlayerPut) {
+        
+        [playerPuts addObject:point];
+    } else if (isCreateSystemPut) {
+        
+        [systemPuts addObject:point];
+    }
+    
+    
     CCSprite *sprite = popLayer->selectedSprite;
     CCSize winSize = CCDirector::sharedDirector()->getWinSize();
     sprite->setPosition(ccp(winSize.width / 2, winSize.height / 2));
     playerPutSprites->addObject(sprite);
     this->addChild(sprite);
+    
+    
+    
+    isCreatePlayerPut = false;
+    isCreateSystemPut = false;
+    
+    
+    for (MEPoint *p in playerPuts) {
+        
+        NSLog(@"MEPoints in playerPuts --> (%f, %f)", [p point].x, [p point].y);
+    }
+    for (MEPoint *p in systemPuts) {
+        
+        NSLog(@"MEPoints in systemPuts --> (%f, %f)", [p point].x, [p point].y);
+    }
 }
 
 void MELayer::createPlayerPut()
 {
+    isCreatePlayerPut = true;
+    
     MEPopLayer *layer = new MEPopLayer(@"buildings");
     popLayer = layer;
-    this->getParent()->addChild(popLayer,1,11);
+    this->getParent()->addChild(popLayer, 1, 11);
 
 }
 
 void MELayer::createSystemPut()
 {
     NSLog(@"中立点 menuItem is clicked...");
+    
+    isCreateSystemPut = true;
+    
+    MEPopLayer *layer = new MEPopLayer(@"buildings");
+    popLayer = layer;
+    this->getParent()->addChild(popLayer, 1, 11);
 }
 
 void MELayer::createSceneObj()
