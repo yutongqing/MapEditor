@@ -507,6 +507,8 @@ void MELayer::chosenBg()
     if (popLayer) {
         bgFileName = popLayer->selectedFile;
         bgSprite = popLayer->selectedSprite;
+        bgSprite->setPosition(ccp(CCDirector::sharedDirector()->getWinSize().width/2,CCDirector::sharedDirector()->getWinSize().height/2));
+        this->addChild(bgSprite,-1);
     }
     
 }
