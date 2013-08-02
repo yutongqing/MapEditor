@@ -5,7 +5,8 @@
 //  Created by Vertra on 13-7-29.
 //
 //
-
+#ifndef MAPEDITOR_MESPRITE
+#define MAPEDITOR_MESPRITE
 #import "cocos2d.h"
 
 using namespace cocos2d;
@@ -19,4 +20,4 @@ public:
     bool init();
 };
 
-
+#endif

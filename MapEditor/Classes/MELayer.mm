@@ -14,9 +14,11 @@
 #include "XMLWrite.h"
 using namespace cocos2d;
 
-
+//需要保存至xml的数据
 MEPoint *homeA;
 MEPoint *homeB;
+NSString *bgFileName;
+CCSprite *bgSprite;
 NSMutableArray *routes;
 NSMutableArray *playerPuts;
 NSMutableArray *systemPuts;
@@ -173,9 +175,9 @@ void MELayer::xmlWriteData()
     NSString *dir = [paths objectAtIndex:0];
     dir = [[dir stringByAppendingString:@"/"] stringByAppendingString:@"mapData.xml"];
     XMLWrite xmlWrite;
-    xmlWrite.XMLWriteInit(dir, @"1.0", @"utf-8");
+    xmlWrite.XMLWriteInit((char *)[dir UTF8String], "1.0", "utf-8");
     
-    xmlWrite.xmlDataWrite(xmlWrite,routes,playerPuts,systemPuts,bgSprite->getContentSize().width,bgSprite->getContentSize().height,@"bg.png");
+    xmlWrite.xmlDataWrite(xmlWrite,routes,playerPuts,systemPuts,bgSprite->getContentSize().width,bgSprite->getContentSize().height,bgFileName);
     
 }
 
@@ -203,7 +205,8 @@ void MELayer::update(float delta)
 
 void MELayer::chooseBg(CCObject* pSender)
 {
-    MEPopLayer *popLayer = new MEPopLayer(@"background");
+    MEPopLayer *layer = new MEPopLayer(@"background");
+    popLayer = layer;
     this->removeAllChildren();
     this->getParent()->addChild(popLayer,1,11);
 }
@@ -497,6 +500,15 @@ void MELayer::draw()
     
     //检测是否有OpenGL错误发生，如果有则打印错误
     CHECK_GL_ERROR_DEBUG();
+}
+
+void MELayer::chosenBg()
+{
+    if (popLayer) {
+        bgFileName = popLayer->selectedFile;
+        bgSprite = popLayer->selectedSprite;
+    }
+    
 }
 
 void MELayer::chosenBuilding()

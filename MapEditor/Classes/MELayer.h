@@ -11,6 +11,7 @@
 
 #import "cocos2d.h"
 #import "MESprite.h"
+
 using namespace cocos2d;
 
 class MELayer : public cocos2d::CCLayer
@@ -18,16 +19,13 @@ class MELayer : public cocos2d::CCLayer
 private:
 public:
     
-    
-    
-    CCSprite *bgSprite;
-    
     virtual bool init();
     void initMainScene();
     static cocos2d::CCScene* scene();
     CREATE_FUNC(MELayer);
     void chooseBg(CCObject* pSender);
     void chosenBuilding();
+    void chosenBg();
     
     void update(float delta);
     virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);

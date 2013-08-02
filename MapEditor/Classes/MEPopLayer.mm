@@ -110,13 +110,13 @@ void MEPopLayer::registerWithTouchDispatcher(void)
 
 void MEPopLayer::chosenBg()
 {
-    MELayer *layer = (MELayer*)this->getParent()->getChildren()->objectAtIndex(0);
+    MELayer *layer0 = (MELayer*)this->getParent()->getChildren()->objectAtIndex(0);
     this->removeAllChildren();
-    layer->bgSprite = selectedSprite;
-    layer->addChild(layer->bgSprite, -1);
     this->getParent()->removeChild(this);
+    selectedFile = (NSString*)[allFileName objectAtIndex:this->selcetedId];
+    layer0->chosenBg();
     
-    layer->initMainScene();
+    layer0->initMainScene();
 }
 
 void MEPopLayer::chosenBuilding()
