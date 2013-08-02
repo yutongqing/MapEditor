@@ -14,6 +14,7 @@
 		9A7DDCBD17A912A3003DC99F /* XMLWrite.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD5E4817A8B4580083E102 /* XMLWrite.mm */; };
 		9A8C350D17A66EE000901E99 /* MEPoint.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9AD147D317A6472400197937 /* MEPoint.mm */; };
 		9A8C350E17A66F2C00901E99 /* MELayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9AD134E217A665CA009FB326 /* MELayer.mm */; };
+		9AA03CCA17AB3EDC0094E054 /* dustbin_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA03CC917AB3EDC0094E054 /* dustbin_normal.png */; };
 		9AD1442317A63FE700197937 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD1442217A63FE700197937 /* QuartzCore.framework */; };
 		9AD1442517A63FE700197937 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD1442417A63FE700197937 /* OpenGLES.framework */; };
 		9AD1442717A63FE700197937 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD1442617A63FE700197937 /* OpenAL.framework */; };
@@ -299,6 +300,7 @@
 		06FCC1F317A9A7A800F81953 /* point.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = point.png; sourceTree = "<group>"; };
 		9A8DA7EB17A8B8B40090F050 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		9A8DA7EC17A8B8B50090F050 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		9AA03CC917AB3EDC0094E054 /* dustbin_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dustbin_normal.png; sourceTree = "<group>"; };
 		9AD134E217A665CA009FB326 /* MELayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MELayer.mm; path = Classes/MELayer.mm; sourceTree = "<group>"; };
 		9AD134E317A665CB009FB326 /* MELayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MELayer.h; path = Classes/MELayer.h; sourceTree = "<group>"; };
 		9AD1441F17A63FE700197937 /* MapEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -969,6 +971,7 @@
 			isa = PBXGroup;
 			children = (
 				06FCC1F317A9A7A800F81953 /* point.png */,
+				9AA03CC917AB3EDC0094E054 /* dustbin_normal.png */,
 				9AD1443417A63FE700197937 /* CloseNormal.png */,
 				9AD1443617A63FE700197937 /* CloseSelected.png */,
 				9AD1443817A63FE700197937 /* Default.png */,
@@ -2202,6 +2205,7 @@
 				9AD144E817A63FE800197937 /* ChangeLog in Resources */,
 				9AD1465C17A63FEB00197937 /* project.pbxproj in Resources */,
 				06FCC1F417A9A7A800F81953 /* point.png in Resources */,
+				9AA03CCA17AB3EDC0094E054 /* dustbin_normal.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
